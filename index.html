@@ -82,26 +82,30 @@
     <!-- ===================== HERO ===================== -->
     <section class="ab-hero">
       <div class="ab-hero__media">
-        <video class="ab-hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/cdc-innovation-airbridge.jpeg">
-          <source src="assets/media/cdc-hero-video.mp4" type="video/mp4" />
+        <video class="ab-hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg">
+          <source src="assets/media/airbridge-demo-1.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="ab-hero__overlay"></div>
 
       <div class="ab-container">
         <div class="ab-hero__inner">
-          <span class="ab-hero__eyebrow">Cableway Development Company</span>
-          <h1 class="ab-hero__title">A new way to <em>experience</em> the view</h1>
+          <span class="ab-hero__eyebrow">CDC · Cableway Development Company</span>
+          <h1 class="ab-hero__title">
+            <span class="ab-hero__brand">AirBridge®</span>
+            <span class="ab-hero__tagline">Next-Generation Cableway Technology</span>
+          </h1>
           <p class="ab-hero__subtitle">
-            AirBridge® is CDC's patented self-propelled ropeway technology — engineered for
-            challenging environments where traditional transport infrastructure is not feasible.
+            A revolutionary patented technology by CDC that redefines cableway logistics and
+            aerial transport — for urban, mountain and remote environments where conventional
+            infrastructure is not feasible.
           </p>
           <div class="ab-hero__actions">
-            <a class="ab-btn ab-btn--lg" href="https://cdc.company/innovation/" target="_blank" rel="noopener">
-              Discover AirBridge® <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            <a class="ab-btn ab-btn--lg" href="#solutions">
+              Explore AirBridge Solutions <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
-            <a class="ab-btn ab-btn--lg ab-btn--ghost" href="#contact">
-              Request project calculation
+            <a class="ab-btn ab-btn--lg ab-btn--ghost" href="https://cdc.company/" target="_blank" rel="noopener">
+              Go to Main Website (cdc.company) <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -234,9 +238,15 @@
         <div class="ab-solutions__grid">
           <!-- Card 1: Passenger Ropeways -->
           <article class="ab-solution ab-reveal">
-            <div class="ab-solution__media">
+            <div class="ab-solution__media ab-slider js-slider" data-solution="passenger">
               <span class="ab-solution__num">01</span>
-              <img src="assets/images/cdc-passenger-ropeways-cover.jpg" alt="Passenger Ropeways" loading="lazy" />
+              <div class="ab-slider__slides">
+                <img class="ab-slider__slide is-active" src="assets/images/cdc-passenger-ropeways-cover.jpg" alt="Passenger Ropeways" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-passenger-ropeways.png" alt="Passenger Ropeways — overview" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-passenger-ropeways-tech.png" alt="Passenger Ropeways — technology" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-passenger-ropeways-3.jpeg" alt="Passenger Ropeways — in operation" loading="lazy" />
+              </div>
+              <div class="ab-slider__dots" role="tablist" aria-label="Passenger Ropeways gallery"></div>
             </div>
             <div class="ab-solution__body">
               <h3 class="ab-solution__title">Passenger Ropeways</h3>
@@ -250,17 +260,23 @@
                 <li>Panoramic, silent mobility</li>
                 <li>Year-round operation in demanding terrain</li>
               </ul>
-              <a class="ab-solution__link" href="https://cdc.company/passenger-ropeways/" target="_blank" rel="noopener">
+              <button class="ab-solution__link js-solution-open" type="button" data-solution="passenger">
                 Learn more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </a>
+              </button>
             </div>
           </article>
 
           <!-- Card 2: Material Ropeways -->
           <article class="ab-solution ab-reveal">
-            <div class="ab-solution__media">
+            <div class="ab-solution__media ab-slider js-slider" data-solution="material">
               <span class="ab-solution__num">02</span>
-              <img src="assets/images/cdc-material-ropeways.jpg" alt="Material Ropeways" loading="lazy" />
+              <div class="ab-slider__slides">
+                <img class="ab-slider__slide is-active" src="assets/images/cdc-material-ropeways.jpg" alt="Material Ropeways" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-material-ropeways-tech.jpg" alt="Material Ropeways — technology" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-material-ropeways-2.jpg" alt="Material Ropeways — industrial" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-material-ropeways-4.jpeg" alt="Material Ropeways — in operation" loading="lazy" />
+              </div>
+              <div class="ab-slider__dots" role="tablist" aria-label="Material Ropeways gallery"></div>
             </div>
             <div class="ab-solution__body">
               <h3 class="ab-solution__title">Material Ropeways</h3>
@@ -274,17 +290,23 @@
                 <li>Minimal environmental and ground impact</li>
                 <li>Lower operating costs vs. road logistics</li>
               </ul>
-              <a class="ab-solution__link" href="https://cdc.company/material-ropeways/" target="_blank" rel="noopener">
+              <button class="ab-solution__link js-solution-open" type="button" data-solution="material">
                 Learn more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </a>
+              </button>
             </div>
           </article>
 
           <!-- Card 3: Cable Cranes -->
           <article class="ab-solution ab-reveal">
-            <div class="ab-solution__media">
+            <div class="ab-solution__media ab-slider js-slider" data-solution="cable">
               <span class="ab-solution__num">03</span>
-              <img src="assets/images/cdc-cable-cranes.jpeg" alt="Cable Cranes" loading="lazy" />
+              <div class="ab-slider__slides">
+                <img class="ab-slider__slide is-active" src="assets/images/cdc-cable-cranes.jpeg" alt="Cable Cranes" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-cablecrane-2.png" alt="Cable Cranes — system" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-cablecrane-15.png" alt="Cable Cranes — installation" loading="lazy" />
+                <img class="ab-slider__slide" src="assets/images/cdc-cablecrane-16.png" alt="Cable Cranes — in operation" loading="lazy" />
+              </div>
+              <div class="ab-slider__dots" role="tablist" aria-label="Cable Cranes gallery"></div>
             </div>
             <div class="ab-solution__body">
               <h3 class="ab-solution__title">Cable Cranes</h3>
@@ -298,9 +320,9 @@
                 <li>Fast installation in the most difficult terrain</li>
                 <li>AirBridge®: long-distance, self-propelled operation</li>
               </ul>
-              <a class="ab-solution__link" href="https://cdc.company/cable-cranes/" target="_blank" rel="noopener">
+              <button class="ab-solution__link js-solution-open" type="button" data-solution="cable">
                 Learn more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </a>
+              </button>
             </div>
           </article>
         </div>
@@ -504,6 +526,33 @@
       </a>
       <br /><br />
       <button class="ab-btn ab-btn--dark ab-modal__close js-modal-close" type="button">Close</button>
+    </div>
+  </div>
+
+  <!-- ===================== SOLUTION MODAL ===================== -->
+  <div class="ab-smodal js-smodal" role="dialog" aria-modal="true" aria-labelledby="smodal-title" aria-hidden="true">
+    <div class="ab-smodal__backdrop js-smodal-close"></div>
+    <div class="ab-smodal__dialog">
+      <button class="ab-smodal__x js-smodal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <div class="ab-smodal__scroll">
+        <span class="ab-eyebrow" id="smodal-eyebrow">Solution</span>
+        <h3 class="ab-smodal__title" id="smodal-title"></h3>
+        <p class="ab-smodal__text" id="smodal-text"></p>
+
+        <div class="ab-smodal__video">
+          <video id="smodal-video" controls playsinline preload="none"></video>
+        </div>
+
+        <h4 class="ab-smodal__sub">Key specifications</h4>
+        <ul class="ab-smodal__specs" id="smodal-specs"></ul>
+
+        <h4 class="ab-smodal__sub">Gallery</h4>
+        <div class="ab-smodal__gallery" id="smodal-gallery"></div>
+
+        <a class="ab-btn js-smodal-cta" id="smodal-cta" href="https://cdc.company/" target="_blank" rel="noopener">
+          Visit on cdc.company <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+      </div>
     </div>
   </div>
 

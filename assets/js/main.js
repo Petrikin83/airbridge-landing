@@ -145,5 +145,158 @@
       form.reset();
     });
   }
+  /* ---------- Solution data ---------- */
+  const SOLUTIONS = {
+    passenger: {
+      eyebrow: 'Passenger Ropeways',
+      title: 'Passenger Ropeways',
+      text: 'CDC passenger ropeways provide efficient, low-impact mobility across urban, mountain and remote environments. AirBridge® enables cabins to board and unload at any point along the line, independent from fixed stations.',
+      video: 'assets/media/airbridge-demo-1.mp4',
+      link: 'https://cdc.company/passenger-ropeways/',
+      specs: [
+        ['Boarding & unloading', 'At any point along the line'],
+        ['Applications', 'Urban transport · tourism · mountain resorts · personnel'],
+        ['Key benefits', 'Panoramic silent mobility, reduced land use & congestion'],
+        ['Power options', 'Electric · hybrid · 100% zero-emission ammonia']
+      ],
+      images: [
+        'assets/images/cdc-passenger-ropeways-cover.jpg',
+        'assets/images/cdc-passenger-ropeways.png',
+        'assets/images/cdc-passenger-ropeways-tech.png',
+        'assets/images/cdc-passenger-ropeways-3.jpeg'
+      ]
+    },
+    material: {
+      eyebrow: 'Material Ropeways',
+      title: 'Material Ropeways',
+      text: 'CDC material ropeways provide continuous transport of bulk materials across mountains, valleys, rivers and remote extraction sites where road infrastructure is costly, slow to build or environmentally disruptive.',
+      video: 'assets/media/airbridge-demo-2.mp4',
+      link: 'https://cdc.company/material-ropeways/',
+      specs: [
+        ['Transport', 'Continuous bulk material over long distances'],
+        ['Applications', 'Construction · hydropower · mining & quarrying'],
+        ['Payload', 'Up to 40 tons'],
+        ['Key benefits', 'Reduced haul roads, minimal ground impact, lower OPEX']
+      ],
+      images: [
+        'assets/images/cdc-material-ropeways.jpg',
+        'assets/images/cdc-material-ropeways-tech.jpg',
+        'assets/images/cdc-material-ropeways-2.jpg',
+        'assets/images/cdc-material-ropeways-4.jpeg'
+      ]
+    },
+    cable: {
+      eyebrow: 'Cable Cranes',
+      title: 'Cable Cranes',
+      text: 'CDC develops and operates cable crane systems for lifting and transport across steep slopes, valleys and hard-to-access areas where conventional machinery cannot operate safely or efficiently.',
+      video: 'assets/media/cdc-hero-video.mp4',
+      link: 'https://cdc.company/cable-cranes/',
+      specs: [
+        ['System', 'Track ropes · motorized carriage · hauling system'],
+        ['Applications', 'Steep slopes, valleys, complex construction sites'],
+        ['Key benefits', 'No roads or heavy ground machinery required'],
+        ['AirBridge® evolution', 'Long-distance, self-propelled, automation-ready']
+      ],
+      images: [
+        'assets/images/cdc-cable-cranes.jpeg',
+        'assets/images/cdc-cablecrane-2.png',
+        'assets/images/cdc-cablecrane-15.png',
+        'assets/images/cdc-cablecrane-16.png'
+      ]
+    }
+  };
+
+  /* ---------- Solution sliders (auto fade every 4s) ---------- */
+  document.querySelectorAll('.js-slider').forEach((slider) => {
+    const slides = slider.querySelectorAll('.ab-slider__slide');
+    const dotsWrap = slider.querySelector('.ab-slider__dots');
+    if (!slides.length || !dotsWrap) return;
+
+    const dots = [];
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ab-slider__dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => { goTo(i); restart(); });
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    });
+
+    let index = 0;
+    let timer = null;
+
+    const goTo = (i) => {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, j) => s.classList.toggle('is-active', j === index));
+      dots.forEach((d, j) => d.classList.toggle('is-active', j === index));
+    };
+
+    const start = () => { timer = setInterval(() => goTo(index + 1), 4000); };
+    const restart = () => { clearInterval(timer); start(); };
+
+    start();
+  });
+  /* ---------- Solution modal ---------- */
+  const smodal = document.querySelector('.js-smodal');
+  const smodalVideo = document.getElementById('smodal-video');
+
+  const openSModal = () => {
+    if (!smodal) return;
+    smodal.classList.add('is-open');
+    smodal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeSModal = () => {
+    if (!smodal) return;
+    smodal.classList.remove('is-open');
+    smodal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (smodalVideo) {
+      smodalVideo.pause();
+      smodalVideo.removeAttribute('src');
+      smodalVideo.load();
+    }
+  };
+
+  if (smodal) {
+    smodal.querySelectorAll('.js-smodal-close').forEach((el) => {
+      el.addEventListener('click', closeSModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && smodal.classList.contains('is-open')) closeSModal();
+    });
+
+    document.querySelectorAll('.js-solution-open').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const data = SOLUTIONS[btn.dataset.solution];
+        if (!data) return;
+
+        document.getElementById('smodal-eyebrow').textContent = data.eyebrow;
+        document.getElementById('smodal-title').textContent = data.title;
+        document.getElementById('smodal-text').textContent = data.text;
+
+        if (smodalVideo) {
+          smodalVideo.src = data.video;
+          smodalVideo.poster = data.images[0];
+          smodalVideo.load();
+        }
+
+        document.getElementById('smodal-specs').innerHTML = data.specs
+          .map((pair) => '<li><b>' + pair[0] + '</b><span>' + pair[1] + '</span></li>')
+          .join('');
+
+        document.getElementById('smodal-gallery').innerHTML = data.images
+          .map((src) => '<img src="' + src + '" alt="' + data.title + '" loading="lazy" />')
+          .join('');
+
+        document.getElementById('smodal-cta').href = data.link;
+
+        openSModal();
+      });
+    });
+  }
 })();
 

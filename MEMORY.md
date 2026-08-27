@@ -62,6 +62,18 @@
 15. **Сервер:** `python -m http.server 8085` (фоновый процесс) → `http://localhost:8085`
     (HTTP 200; CSS/JS/шрифты/изображения/видео отдаются со статусом 200).
 
+### [Правки] 2026-08-27 — Hero + Solutions (стратегические)
+
+16. **Hero:** фон заменён на `airbridge-demo-1.mp4` (1280×720, 10с — самый качественный
+    демо-ролик; poster извлечён из него в `hero-poster.jpg`). H1 перестроен: бренд
+    «AirBridge®» крупно (Goodly) + таглайн «Next-Generation Cableway Technology».
+    CTA1 «Explore AirBridge Solutions» → `#solutions`; CTA2 «Go to Main Website (cdc.company)»
+    → `https://cdc.company/` (new tab).
+17. **Solutions:** в 3 карточках — мини-слайдеры по 4 фото (auto-fade 4с + точки-индикаторы);
+    «Learn more» → кнопка, открывающая модалку с характеристиками, видео и галереей (4 фото).
+    Outdoor Lift по-прежнему исключён.
+18. **Докачаны фото:** passenger-3.jpeg, material-2.jpg/4.jpeg, cablecrane-2/15/16.png.
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
