@@ -22,6 +22,10 @@ MAPPING = [
     ("pptx_859ae034d509.png", "airbridge-cable-1.png"),      # image7 schematic (RGBA -> white)
     ("pptx_1e6e2601649c.jpg", "airbridge-cable-2.jpg"),      # image8  cable crane
     ("pptx_2df31302bfc6.jpg", "airbridge-cable-3.jpg"),      # image18 safety/installation
+    # Additional authentic frames (urban, environmental, field)
+    ("pptx_8fc04245f992.jpg", "airbridge-passenger-4.jpg"), # image6  certified urban mobility
+    ("pptx_88280ee325a7.jpg", "airbridge-cable-4.jpg"),     # image15 environmental/installation
+    ("pptx_fbf6242b1516.jpg", "airbridge-cable-5.jpg"),     # image17 field operation
 ]
 
 

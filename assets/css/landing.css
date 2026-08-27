@@ -810,6 +810,111 @@ button {
   transform: translateX(4px);
 }
 
+/* ---------- Recognition / social proof ---------- */
+.ab-recognition__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.ab-recognition-card {
+  background: var(--cdc-light);
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  border-radius: var(--cdc-radius-md);
+  padding: 30px 26px;
+  transition: transform var(--cdc-transition), box-shadow var(--cdc-transition);
+}
+
+.ab-recognition-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--cdc-shadow-md);
+}
+
+.ab-recognition-card__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 117, 31, 0.12);
+  color: var(--cdc-orange);
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.ab-recognition-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ab-recognition-card__text {
+  font-size: 15px;
+  color: #5a5a5a;
+}
+
+.ab-recognition__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.ab-recognition-metric {
+  text-align: center;
+  padding: 22px 12px;
+  background: var(--cdc-white);
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  border-radius: var(--cdc-radius-md);
+}
+
+.ab-recognition-metric__value {
+  display: block;
+  font-family: var(--cdc-font-display);
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  color: var(--cdc-dark);
+  margin-bottom: 6px;
+}
+
+.ab-recognition-metric__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b6b6b;
+  letter-spacing: 0.02em;
+}
+
+.ab-recognition__awards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.ab-recognition-award {
+  background: var(--cdc-white);
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  border-radius: var(--cdc-radius-md);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.ab-recognition-award--dark {
+  background: var(--cdc-dark);
+  border-color: var(--cdc-dark);
+}
+
+.ab-recognition-award img {
+  max-height: 72px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 /* ---------- Media gallery ---------- */
 .ab-gallery__grid {
   display: grid;
@@ -879,7 +984,7 @@ button {
 
 .ab-gallery__side {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 24px;
 }
 
@@ -1428,6 +1533,18 @@ button {
   .ab-trust__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .ab-recognition__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-recognition__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ab-recognition__awards {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1474,7 +1591,7 @@ button {
   }
 
   .ab-gallery__side {
-    grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
 
   .ab-smodal__scroll {

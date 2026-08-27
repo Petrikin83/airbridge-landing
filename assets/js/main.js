@@ -162,7 +162,8 @@
       images: [
         'assets/images/airbridge-passenger-1.jpg',
         'assets/images/airbridge-passenger-2.jpg',
-        'assets/images/airbridge-passenger-3.jpg'
+        'assets/images/airbridge-passenger-3.jpg',
+        'assets/images/airbridge-passenger-4.jpg'
       ]
     },
     material: {
@@ -199,7 +200,9 @@
       images: [
         'assets/images/airbridge-cable-1.png',
         'assets/images/airbridge-cable-2.jpg',
-        'assets/images/airbridge-cable-3.jpg'
+        'assets/images/airbridge-cable-3.jpg',
+        'assets/images/airbridge-cable-4.jpg',
+        'assets/images/airbridge-cable-5.jpg'
       ]
     }
   };

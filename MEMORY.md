@@ -92,6 +92,22 @@
 22. **Результат:** в слайдерах/модалках 0 ссылок на старые фото канаток; слайдеры 3/4/3 кадра.
     Утилиты сохранены в `scripts/`, промежуточные кадры в `scripts/_extract/` (gitignored).
 
+### [Правки] 2026-08-27 — Видео + фото + социальные доказательства
+
+23. **Видео (точный тайминг):** ffmpeg freezedetect/scene-детект показал статичную паузу
+    ~0.4–5.0 с; скрипт `scripts/trim_video.py` подрезал `airbridge-motion-galiya.mp4` со
+    старта **5.0 с** (47.4 → 42.4 с, 6.2 МБ), poster пересобран. Из секции «See AirBridge in
+    Motion» удалены дублирующие карточки «Project demo reel» и «Short demo» — остался плеер +
+    2 PDF-презентации; сетка `.ab-gallery__side` переведена в 1 колонку (2 строки).
+24. **Расширение фото:** набор дополнен кадрами image6/image15/image17 (urban, environmental,
+    field). Слайдеры и модалки: Passenger **4** / Material **4** / Cable Cranes **5** кадров
+    (всего 13 аутентичных кадров гусеничного модуля из `AirBridge by CDC - V7.pptx`).
+25. **Соц.доказательства:** из Clone_CDC скопированы логотипы наград
+    (`cdc-award-ft.png` — FT & Statista Top-3 Europe, `cdc-award-winner-2026.png`,
+    `cdc-logo-leader-crescita.png`). Добавлена секция **«Proven Engineering & Recognition»**:
+    3 карточки (Patented Tracked System / International Safety Compliance / Years of Engineering
+    Excellence) + 4 метрики (+500%, $50M+, 200+, 52) + 3 баннера наград.
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
