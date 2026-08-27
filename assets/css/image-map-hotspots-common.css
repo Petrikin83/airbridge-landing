@@ -1,0 +1,475 @@
+.imh-6310-drag {
+  width: auto;
+  height: auto;
+  display: inline-block !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+}
+
+.imh-6310-hide {
+  display: none;
+}
+
+.imh-6310-point-icons,
+.imh-6310-point-icons * {
+  float: left;
+}
+
+.imh-6310-annotation-box {
+  width: 100%;
+  padding: 0;
+  position: relative;
+  max-width: 100% !important;
+  overflow: hidden;
+}
+
+.imh-6310-annotation-box-inner {
+  transition: transform 0.3s ease;
+}
+.imh-6310-annotation-box-inner:active {
+  cursor: grabbing;
+}
+
+.imh-6310-annotation-box .imh-6310-main-image {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+}
+
+.imh-6310-drag .imh-6310-pin-main-img,
+.imh-6310-drag .imh-6310-pin-hover-img {
+  position: relative;
+  text-decoration: none;
+}
+
+.imh-6310-pin-hover-img {
+  display: none !important;
+  text-decoration: none;
+}
+
+.imh-6310-drag:hover .imh-6310-pin-hover-img {
+  display: inline-block !important;
+  text-decoration: none;
+}
+
+.imh-6310-drag:hover .imh-6310-pin-main-img {
+  display: none !important;
+}
+
+/* Template CSS Start */
+
+/* temp 01 */
+
+.imh-6310-tooltip.imh-6310-template-01 a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #000000;
+}
+
+.imh-6310-tooltip.imh-6310-template-01 {
+  float: left;
+  width: auto;
+  background: lightcoral;
+  position: relative;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.imh-6310-template-01-hover-content {
+  width: auto;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 6px;
+  z-index: 1;
+  float: left;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* temp 02 */
+
+.imh-6310-template-02-hover-content {
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  border-radius: 6px;
+  z-index: 1;
+  left: 0;
+}
+
+.imh-6310-template-02-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.imh-6310-pos-right-tooltip::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid black;
+  left: -9px;
+  top: 50%;
+}
+
+.imh-6310-template-02-content iframe {
+  max-height: 96% !important;
+  max-width: 97% !important;
+  position: absolute;
+}
+
+/* temp 03 */
+
+.imh-6310-template-03-hover-content {
+  transition: 0.5s;
+  position: relative;
+  z-index: 1;
+}
+
+.imh-6310-template-03-tooltip-testimonial {
+  padding: 20px;
+  background: cornsilk;
+  float: left;
+  width: 100%;
+}
+
+.imh-6310-template-03-tooltip-testimonial .imh-6310-template-03-tooltip-pic {
+  width: 30%;
+  height: auto;
+  float: left;
+  margin-right: 50px;
+  position: relative;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-pic:before,
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-pic:after {
+  content: "";
+  display: block;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-pic:before {
+  bottom: -10%;
+  left: -10%;
+  border-bottom: 3px solid #e16b47;
+  border-left: 3px solid #e16b47;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-pic:after {
+  top: -10%;
+  right: -10%;
+  border-top: 3px solid #e16b47;
+  border-right: 3px solid #e16b47;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-pic
+  img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  animation: unset !important;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-testimonial-content {
+  width: calc(70% - 50px);
+  float: left;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-testimonial-title {
+  font-size: 24px;
+  color: #e16b47;
+  text-transform: capitalize;
+  width: 100%;
+  float: left;
+}
+
+.imh-6310-template-03-tooltip-testimonial
+  .imh-6310-template-03-tooltip-description {
+  font-size: 13px;
+  color: #7c7c7c;
+  line-height: 22px;
+  float: left;
+  width: 100%;
+}
+
+/* temp 04 */
+
+.imh-6310-template-04-tooltip-testimonial {
+  background: #3e2a41;
+  transition: 0.5s;
+  bottom: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.imh-6310-template-04-tooltip-testimonial-content {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.imh-6310-template-04-tooltip-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-top: -50px;
+  overflow: hidden;
+  border: 8px solid rgba(255, 255, 255, 0.15);
+}
+
+.imh-6310-template-04-tooltip-pic img {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+.imh-6310-template-04-tooltip-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  margin: 10px 0 0 0;
+  font-family: sans-serif;
+}
+
+.imh-6310-template-04-tooltip-description {
+  display: inline-block;
+  margin: 10px;
+  padding: 8px;
+  border: 1px solid rgb(0 0 0 / 15%);
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  position: relative;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+/* temp 05 */
+
+.imh-6310-template-05-hover-content {
+  background: #3e2a41;
+  transition: 0.5s;
+  bottom: 0;
+  position: relative;
+  z-index: 1;
+  float: left;
+}
+
+.imh-6310-template-05-hover-content .imh-6310-template-05-tooltip-testimonial {
+  margin: 20px 0;
+  float: left;
+  width: 100%;
+}
+
+.imh-6310-template-05-tooltip-testimonial-content {
+  width: calc(50% - 8px);
+  float: left;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0 8px 8px;
+}
+
+.imh-6310-template-05-tooltip-pic {
+  width: 100%;
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imh-6310-template-05-tooltip-pic img {
+  width: 100% !important;
+  height: auto;
+  position: relative !important;
+}
+
+.imh-6310-template-05-tooltip-testimonial-content
+  .imh-6310-template-05-tooltip-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 10px 0 0 0;
+}
+
+.imh-6310-template-05-tooltip-description {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid rgb(255 255 255 / 15%);
+  font-size: 14px;
+  color: white;
+  position: relative;
+  margin: 8px;
+  font-family: sans-serif;
+  line-height: 20px;
+  float: left;
+  width: calc(50% - 16px);
+  text-align: left;
+}
+
+/* media queries  */
+
+@media only screen and (max-width: 425px) {
+  /* temp 03 */
+
+  .imh-6310-template-03-hover-content {
+    width: 300px;
+  }
+  .imh-6310-template-03-tooltip-testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 5px;
+  }
+  .imh-6310-template-03-tooltip-testimonial .imh-6310-template-03-tooltip-pic {
+    margin: 0 auto;
+    width: 50%;
+  }
+  .imh-6310-template-03-tooltip-testimonial
+    .imh-6310-template-03-tooltip-testimonial-content {
+    width: 100%;
+  }
+  .imh-6310-template-03-tooltip-testimonial-title {
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+  }
+  .imh-6310-template-03-tooltip-description {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* temp 04 */
+
+  .imh-6310-template-04-tooltip-testimonial {
+    width: 300px;
+  }
+  .imh-6310-template-04-tooltip-pic {
+    /* width: 50%; */
+  }
+
+  /* temp 05 */
+
+  .imh-6310-template-05-tooltip-testimonial {
+    width: 300px;
+  }
+  .imh-6310-template-05-tooltip-testimonial {
+    flex-direction: column;
+    align-items: center;
+  }
+  .imh-6310-template-05-hover-content {
+    width: 100%;
+  }
+  .imh-6310-template-05-tooltip-testimonial-content {
+    width: calc(100% - 16px);
+  }
+  .imh-6310-template-05-hover-content
+    .imh-6310-template-05-tooltip-testimonial {
+    margin: 0 auto;
+  }
+
+  .imh-6310-template-05-tooltip-pic {
+    width: 50%;
+  }
+}
+
+/* button */
+
+.imh-6310-template-tooltip-button {
+  text-align: center;
+  float: left;
+  width: 100%;
+}
+.imh-6310-template-tooltip-button a {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+}
+/* output model section  */
+.imh-6310-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 70px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.imh-6310-modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 70%;
+  padding: 0;
+  box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.9);
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+}
+.imh-6310-hover-content * {
+  text-decoration: none !important;
+}
+.imh-6310-close-button {
+  background-repeat: no-repeat;
+  position: absolute;
+  cursor: pointer;
+  z-index: 9999999;
+}
+.imh-6310-popup {
+  float: left;
+  padding: 0 0 50px !important;
+  margin: 0 !important;
+  /* line-height: 0!important; */
+}
+.imh-6310-slider-content {
+  width: 100%;
+}
+.imh-6310-annotation-box-wrapper{
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 1 1 100% !important;
+  position: relative;
+}
+.imh-6310-builder-box-divider{
+  width: 100%;
+  height: 1px;
+  background: #bfbfbf;
+}

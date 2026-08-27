@@ -1,0 +1,43 @@
+# ===== Python =====
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# ===== Node =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Temp / OS =====
+temp/
+tmp/
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ===== IDE / editors =====
+.vscode/
+.idea/
+*.swp
+
+# ===== Логи и сборки =====
+*.log
+dist/
+build/
+out/
+
+# ===== Локальные секреты =====
+.env
+.env.local
+.env.*.local
+
+# ===== Исходные материалы клиента (raw, уже отсортированы в airbridge_materials/) =====
+Materials from Galiya/

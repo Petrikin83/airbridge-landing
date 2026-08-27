@@ -1,0 +1,67 @@
+/* =========================================================
+   CDC Design Tokens
+   Извлечено из UI-кита D:\Clone_CDC (тема Divi 4.27.6, сайт cdc.company)
+   READ-ONLY источник — файл сформирован как справочник для вёрстки лендинга.
+   ========================================================= */
+
+:root {
+  /* --- Палитра (фирменный стиль CDC) --- */
+  --cdc-orange: #ff751f;        /* Акцент / CTA / ссылки / рамка меню */
+  --cdc-orange-hover: #e56513;  /* Тёмный оттенок акцента для hover */
+  --cdc-dark: #2e2e2e;          /* Основной цвет текста и заголовков */
+  --cdc-graphite: #1e293b;      /* Тёмный акцент (активный фильтр PFG) */
+  --cdc-light: #f3f4f5;         /* Светлый фон (body, header) */
+  --cdc-white: #ffffff;
+  --cdc-black: #000000;
+
+  /* --- Типографика --- */
+  --cdc-font-body: 'Lato', Helvetica, Arial, Lucida, sans-serif;
+  --cdc-font-display: 'Goodly', Helvetica, Arial, Lucida, sans-serif;
+  --cdc-font-mono: 'Courier New', monospace;
+
+  --cdc-fs-base: 16px;
+  --cdc-fs-sm: 14px;
+  --cdc-fs-lg: 18px;
+  --cdc-fs-xl: 24px;
+  --cdc-fs-2xl: 32px;
+  --cdc-fs-3xl: 44px;
+  --cdc-fs-hero: clamp(40px, 7vw, 84px); /* Hero-заголовок */
+
+  --cdc-lh-body: 1.5em;   /* line-height тела (из et-critical-inline-css) */
+  --cdc-lh-tight: 1.2;
+  --cdc-fw-regular: 400;
+  --cdc-fw-medium: 500;
+  --cdc-fw-bold: 700;
+  --cdc-fw-black: 900;
+
+  /* --- Геометрия / отступы --- */
+  --cdc-radius-sm: 8px;    /* радиус карточек (PFG) */
+  --cdc-radius-md: 12px;
+  --cdc-radius-pill: 999px;
+  --cdc-gap: 15px;         /* базовый gap сетки (PFG) */
+  --cdc-space-1: 8px;
+  --cdc-space-2: 16px;
+  --cdc-space-3: 24px;
+  --cdc-space-4: 40px;
+  --cdc-space-5: 64px;
+  --cdc-space-6: 96px;
+
+  /* --- Контейнеры --- */
+  --cdc-container: 1280px;
+  --cdc-container-narrow: 960px;
+
+  /* --- Эффекты --- */
+  --cdc-shadow-sm: 0 4px 12px rgba(46, 46, 46, 0.08);
+  --cdc-shadow-md: 0 12px 32px rgba(46, 46, 46, 0.14);
+  --cdc-shadow-lg: 0 24px 60px rgba(46, 46, 46, 0.22);
+  --cdc-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Кнопки (по Divi .et_pb_button) --- */
+  --cdc-btn-bg: var(--cdc-orange);
+  --cdc-btn-bg-hover: var(--cdc-orange-hover);
+  --cdc-btn-text: #ffffff;
+  --cdc-btn-padding: 0.85em 2.1em;
+  --cdc-btn-radius: 4px;
+  --cdc-btn-font-size: 18px;
+  --cdc-btn-font-weight: 500;
+}
