@@ -108,6 +108,18 @@
     3 карточки (Patented Tracked System / International Safety Compliance / Years of Engineering
     Excellence) + 4 метрики (+500%, $50M+, 200+, 52) + 3 баннера наград.
 
+### [Правки] 2026-08-27 — Сортировка архива + стилистика
+
+26. **Фото-архив:** созданы `assets/images/solutions/{passenger_ropeways, material_ropeways,
+    cable_cranes}`. Скрипт `scripts/sort_photos.py` разложил **45 файлов**: 13 аутентичных
+    кадров (airbridge-*) + CDC-оригиналы по паттернам. **СТОП-ТОЧКА** — папки для ручной
+    курации (gitignored, не привязаны к слайдерам).
+27. **Награды (единообразие):** карточка FT («Ranked 3rd in Europe») переведена с чёрного на
+    белый фон; белый логотип FT конвертирован в тёмный монохром (`cdc-award-ft.png`); всем
+    3 наградам добавлены подписи. Блок наград теперь единый светлый.
+28. **Отступы:** сокращён «воздух» — `.ab-section` 56/8/110 → 44/6/78, `.ab-section-head`
+    36/5/60 → 28/4/44, `.ab-features` 40/5/64 → 28/3.5/46, hero 130/90 → 120/70, trust-bar 40 → 30.
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)

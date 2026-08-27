@@ -44,3 +44,6 @@ Materials from Galiya/
 
 # ===== Промежуточные результаты извлечения (кадры из презентаций) =====
 scripts/_extract/
+
+# ===== Фото-архив для ручной сортировки (review workspace, не финал) =====
+assets/images/solutions/
