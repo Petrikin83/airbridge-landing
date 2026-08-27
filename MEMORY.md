@@ -74,6 +74,24 @@
     Outdoor Lift по-прежнему исключён.
 18. **Докачаны фото:** passenger-3.jpeg, material-2.jpg/4.jpeg, cablecrane-2/15/16.png.
 
+### [Правки] 2026-08-27 — AirBridge® Visual Audit (критично)
+
+19. **Проблема:** карточки содержали фото обычных канаток и 3D-рендеры — инженерно неверно.
+    AirBridge® — самодвижущийся гусеничный модуль (tracked drive unit), едущий по НЕПОДВИЖНОМУ
+    канату. Найден новый материал: `AirBridge by CDC - V7.pptx` (19.7 МБ).
+20. **Извлечение:** скрипты `scripts/extract_airbridge_images.py` (PyMuPDF + zipfile + Pillow)
+    и `scripts/map_pptx.py` (сопоставление картинок ↔ текст слайдов). Извлечено 89 изображений;
+    по контексту слайдов отобраны **10 аутентичных** кадров гусеничного механизма →
+    `scripts/_extract/` → `scripts/prepare_airbridge_images.py` (RGBA→белый) → `assets/images/`.
+    - Passenger (3): `airbridge-passenger-1/2/3.jpg` (модуль + кабины).
+    - Material (4): `airbridge-material-1/2/3.png` + `-4.jpg` (модуль + контейнеры/бадьи).
+    - Cable Cranes (3): `airbridge-cable-1.png` (схема) + `-2/-3.jpg` (кран/тяжёлая техника).
+21. **Видео:** `WhatsApp Video 2026-08-14 at 23.37.53 (1).mp4` → `assets/videos/airbridge-motion-galiya.mp4`
+    (12.9 МБ); poster `airbridge-motion-poster.jpg`. Назначен основным в секции «See AirBridge in Motion».
+    Hero-видео НЕ менялось.
+22. **Результат:** в слайдерах/модалках 0 ссылок на старые фото канаток; слайдеры 3/4/3 кадра.
+    Утилиты сохранены в `scripts/`, промежуточные кадры в `scripts/_extract/` (gitignored).
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)

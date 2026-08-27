@@ -160,10 +160,9 @@
         ['Power options', 'Electric · hybrid · 100% zero-emission ammonia']
       ],
       images: [
-        'assets/images/cdc-passenger-ropeways-cover.jpg',
-        'assets/images/cdc-passenger-ropeways.png',
-        'assets/images/cdc-passenger-ropeways-tech.png',
-        'assets/images/cdc-passenger-ropeways-3.jpeg'
+        'assets/images/airbridge-passenger-1.jpg',
+        'assets/images/airbridge-passenger-2.jpg',
+        'assets/images/airbridge-passenger-3.jpg'
       ]
     },
     material: {
@@ -179,10 +178,10 @@
         ['Key benefits', 'Reduced haul roads, minimal ground impact, lower OPEX']
       ],
       images: [
-        'assets/images/cdc-material-ropeways.jpg',
-        'assets/images/cdc-material-ropeways-tech.jpg',
-        'assets/images/cdc-material-ropeways-2.jpg',
-        'assets/images/cdc-material-ropeways-4.jpeg'
+        'assets/images/airbridge-material-1.png',
+        'assets/images/airbridge-material-2.png',
+        'assets/images/airbridge-material-3.png',
+        'assets/images/airbridge-material-4.jpg'
       ]
     },
     cable: {
@@ -198,10 +197,9 @@
         ['AirBridge® evolution', 'Long-distance, self-propelled, automation-ready']
       ],
       images: [
-        'assets/images/cdc-cable-cranes.jpeg',
-        'assets/images/cdc-cablecrane-2.png',
-        'assets/images/cdc-cablecrane-15.png',
-        'assets/images/cdc-cablecrane-16.png'
+        'assets/images/airbridge-cable-1.png',
+        'assets/images/airbridge-cable-2.jpg',
+        'assets/images/airbridge-cable-3.jpg'
       ]
     }
   };
