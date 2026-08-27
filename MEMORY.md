@@ -40,6 +40,28 @@
 6. **Созданы системные документы:** `PROJECT_RULES.md`, `TECH_SPEC.md`, `MEMORY.md`,
    `.gitignore`, `README.md`, `DEPLOY.md`; токены — `assets/css/cdc-tokens.css`.
 
+### [Этап 2] 2026-08-27 — Вёрстка и сборка
+
+7. **Проверка окружения:** git 2.45.1, Python 3.14.4, Node 24.15.0, порт 8085 свободен.
+8. **Исправлены пути Font Awesome:** `../webfonts/` → `../fonts/` в `font-awesome-all.min.css`
+   (шрифты FA лежат в `assets/fonts/`).
+9. **Создан `assets/css/fonts.css`** — локальные @font-face: Lato (300/400/700/900 + italic 400)
+   и Goodly (`Goodly-Regular.otf`).
+10. **Создан `assets/css/landing.css`** (~24 КБ) — премиум-стили на токенах CDC: header, hero,
+    trust-bar, technology, solutions (3 карточки), gallery, conversion/form, footer, modal,
+    reveal-анимации, адаптив (1100/980/768/560), `prefers-reduced-motion`.
+11. **Создан `assets/js/main.js`** — нативный JS: скролл-состояние шапки, бургер-меню,
+    reveal (IntersectionObserver), play/pause видео галереи, валидация формы + mailto fallback +
+    модалка успеха.
+12. **Свёрстан `index.html`** — секции: Header, Hero (фоновое видео), Trust, Technology,
+    Solutions (**строго 3 карточки**: Passenger Ropeways, Material Ropeways, Cable Cranes),
+    Media gallery, Conversion (форма), Footer, модалка успеха. Outdoor Lift **исключён**.
+13. **Валидация:** HTML парсится (1 h1, 6 section, 3 article, 1 form, 2 video), JS — `node --check`
+    без ошибок, CSS-скобки сбалансированы (196/196), все referenced-ассеты на месте.
+14. **Git:** `git init`, ветка переименована в `main`, первый коммит `1374896`.
+15. **Сервер:** `python -m http.server 8085` (фоновый процесс) → `http://localhost:8085`
+    (HTTP 200; CSS/JS/шрифты/изображения/видео отдаются со статусом 200).
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
@@ -129,7 +151,9 @@
 - [x] Этап 1: материалы отсортированы и изучены.
 - [x] Этап 1: UI-кит CDC извлечён в `./assets/`.
 - [x] Этап 1: системные документы созданы.
-- [ ] **СТОП-ТОЧКА:** ждём одобрения концепта (отчёт ниже).
-- [ ] Этап 2: вёрстка `index.html` (не начинать без команды).
+- [x] Этап 2: `index.html` свёрстан, CSS/JS подключены (vanilla).
+- [x] Этап 2: `git init` + коммит `1374896` (ветка `main`).
+- [x] Этап 2: локальный сервер запущен — http://localhost:8085
+- [ ] (опционально) деплой на GitHub Pages — см. `DEPLOY.md`.
 
 
