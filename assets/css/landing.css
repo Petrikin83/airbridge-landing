@@ -384,7 +384,7 @@ button {
 }
 
 .ab-hero__title {
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 
 .ab-hero__brand {
@@ -393,7 +393,7 @@ button {
   font-weight: 900;
   font-size: clamp(46px, 14.5vw, 160px);
   line-height: 0.9;
-  color: var(--cdc-orange);
+  color: #ffffff;
   letter-spacing: -0.01em;
 }
 
@@ -410,12 +410,6 @@ button {
   color: #ffb47a;
   letter-spacing: 0.01em;
   margin-top: 14px;
-}
-
-.ab-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
 }
 
 .ab-hero__scroll {
@@ -1222,6 +1216,18 @@ button {
   transform: none;
 }
 
+.ab-reveal--scale {
+  transform: scale(0.88);
+}
+
+.ab-reveal--left {
+  transform: translateX(-44px);
+}
+
+.ab-reveal--right {
+  transform: translateX(44px);
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .ab-features {
@@ -1268,26 +1274,18 @@ button {
 }
 
 @media (max-width: 768px) {
+  .ab-hero {
+    background: #0a0a0a;
+  }
+
   .ab-hero__video,
   .ab-hero__poster {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
   }
 
   .ab-hero__overlay {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
-  }
-
-  .ab-hero__actions {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .ab-hero__actions .ab-btn {
-    width: auto;
-    font-size: 14px;
-    padding: 10px 20px;
   }
 
   .ab-header__burger {

@@ -57,7 +57,7 @@
   <!-- ===================== HEADER ===================== -->
   <header class="ab-header">
     <div class="ab-container ab-header__inner">
-      <a class="ab-header__logo" href="https://cdc.company/" target="_blank" rel="noopener" aria-label="CDC — Cableway Development Company">
+      <a class="ab-header__logo" href="#top" aria-label="CDC — Cableway Development Company">
         <img src="assets/images/cdc-logo-orange-full.png" alt="CDC — Cableway Development Company" />
       </a>
 
@@ -66,6 +66,7 @@
         <a class="ab-nav__link" href="#solutions">Solutions</a>
         <a class="ab-nav__link" href="#recognition">Recognition</a>
         <a class="ab-nav__link" href="#gallery">Showcase</a>
+        <a class="ab-nav__link" href="#contacts">Contacts</a>
       </nav>
 
       <a class="ab-btn ab-header__cta" href="https://cdc.company/" target="_blank" rel="noopener">
@@ -83,7 +84,7 @@
     <section class="ab-hero">
       <div class="ab-hero__media">
         <video class="ab-hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg">
-          <source src="assets/media/airbridge-demo-1.mp4" type="video/mp4" />
+          <source src="assets/media/hero-pendulum.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="ab-hero__overlay"></div>
@@ -94,14 +95,6 @@
             <span class="ab-hero__brand">AirBridge<span class="text-orange">®</span></span>
             <span class="ab-hero__tagline">Next-Generation Cableway Technology</span>
           </h1>
-          <div class="ab-hero__actions">
-            <a class="ab-btn ab-btn--lg" href="#solutions">
-              Explore AirBridge Solutions <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-            </a>
-            <a class="ab-btn ab-btn--lg ab-btn--ghost" href="https://cdc.company/" target="_blank" rel="noopener">
-              Visit Official CDC Website <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-            </a>
-          </div>
         </div>
       </div>
 
@@ -139,7 +132,7 @@
     <section class="ab-section ab-section--white" id="technology">
       <div class="ab-container">
         <div class="ab-tech__split">
-          <div class="ab-tech__media-group ab-reveal">
+          <div class="ab-tech__media-group ab-reveal ab-reveal--left">
             <div class="ab-tech__media">
               <img src="assets/images/airbridge-module-clean.png" alt="AirBridge® self-propelled ropeway technology" loading="lazy" />
             </div>
@@ -151,7 +144,7 @@
             </p>
           </div>
 
-          <div class="ab-tech__content ab-reveal">
+          <div class="ab-tech__content ab-reveal ab-reveal--right">
             <span class="ab-eyebrow">The Innovation</span>
             <h2 class="ab-title">AirBridge® — Patented Self-Propelled Ropeway Technology</h2>
             <p>
@@ -261,7 +254,7 @@
           </article>
 
           <!-- Card 2: Material Ropeways -->
-          <article class="ab-solution ab-reveal">
+          <article class="ab-solution ab-reveal" style="transition-delay: 0.12s">
             <div class="ab-solution__media ab-slider js-slider" data-solution="material">
               <span class="ab-solution__num">02</span>
               <div class="ab-slider__slides">
@@ -291,7 +284,7 @@
           </article>
 
           <!-- Card 3: Cable Cranes -->
-          <article class="ab-solution ab-reveal">
+          <article class="ab-solution ab-reveal" style="transition-delay: 0.24s">
             <div class="ab-solution__media ab-slider js-slider" data-solution="cable">
               <span class="ab-solution__num">03</span>
               <div class="ab-slider__slides">
@@ -360,7 +353,7 @@
           </div>
         </div>
 
-        <div class="ab-recognition__metrics ab-reveal">
+        <div class="ab-recognition__metrics ab-reveal ab-reveal--scale">
           <div class="ab-recognition-metric">
             <span class="ab-recognition-metric__value">+500%</span>
             <span class="ab-recognition-metric__label">Growth in 3 years</span>
@@ -379,7 +372,7 @@
           </div>
         </div>
 
-        <div class="ab-recognition__awards ab-reveal">
+        <div class="ab-recognition__awards ab-reveal ab-reveal--scale">
           <div class="ab-recognition-award">
             <img src="assets/images/cdc-award-ft-2026.png" alt="Financial Times &amp; Statista — Top 3 fastest-growing companies in Europe 2026" loading="lazy" />
             <span class="ab-recognition-award__label">Ranked 3rd in Europe</span>
@@ -465,7 +458,7 @@
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="ab-footer">
+  <footer class="ab-footer" id="contacts">
     <div class="ab-container">
       <div class="ab-footer__grid">
         <div class="ab-footer__brand">
