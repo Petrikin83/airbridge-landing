@@ -81,18 +81,18 @@
   // Strict category binding — photos are hardcoded per solution (no cranes in ropeways, etc.)
   const SOLUTION_IMAGES = {
     'passenger-material': [
-      'assets/images/airbridge-passenger-1.jpg',
-      'assets/images/airbridge-passenger-3.jpg',
-      'assets/images/airbridge-material-4.jpg',
-      'assets/images/airbridge-material-2.jpg',
-      'assets/images/airbridge-material-3.jpg',
-      'assets/images/material-hero-module-mountain.jpg'
+      'assets/images/solutions/passengers_material/airbridge-passenger-1.jpg',
+      'assets/images/solutions/passengers_material/airbridge-passenger-3.jpg',
+      'assets/images/solutions/passengers_material/airbridge-material-4.jpg',
+      'assets/images/solutions/passengers_material/airbridge-material-2.jpg',
+      'assets/images/solutions/passengers_material/airbridge-material-3.jpg',
+      'assets/images/solutions/passengers_material/material-hero-module-mountain.jpg'
     ],
     'cable': [
-      'assets/images/airbridge-cable-2.jpg',
-      'assets/images/airbridge-cable-1.jpg',
-      'assets/images/airbridge-cable-3.jpg',
-      'assets/images/cable-airbridge.jpg'
+      'assets/images/solutions/cable_cranes/airbridge-cable-2.jpg',
+      'assets/images/solutions/cable_cranes/airbridge-cable-1.jpg',
+      'assets/images/solutions/cable_cranes/airbridge-cable-3.jpg',
+      'assets/images/solutions/cable_cranes/cable-airbridge.jpg'
     ]
   };
 

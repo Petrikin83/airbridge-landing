@@ -339,44 +339,72 @@ button {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ---------- Hero (seamless stage) ---------- */
+/* ---------- Hero (dark high-tech, 2-column) ---------- */
 .ab-hero {
-  background: #c8c8c8;
-  text-align: center;
-  padding-top: 104px;
+  background: #0b0c10;
+  color: #fff;
+  padding-block: 104px 72px;
+  overflow: hidden;
 }
 
-.ab-hero__inner {
-  padding-bottom: 40px;
+.ab-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
 }
 
-.ab-hero__brand {
+.ab-hero__title {
   margin: 0;
   font-family: var(--cdc-font-display), var(--cdc-font-body);
-  font-weight: 400;
-  font-size: clamp(40px, 7vw, 92px);
-  line-height: 1;
-  color: #111111;
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05;
+  color: #ffffff;
   letter-spacing: 0;
 }
 
 .text-orange {
-  color: var(--cdc-orange);
+  color: #ff751f;
 }
 
-.ab-hero__tagline {
-  margin: 16px 0 0;
+.ab-hero__subtitle {
+  margin: 18px 0 0;
   font-family: var(--cdc-font-body);
   font-weight: 500;
-  font-size: clamp(13px, 1.6vw, 17px);
+  font-size: clamp(12px, 1.4vw, 15px);
   line-height: 1.4;
-  color: #4a4a4a;
-  letter-spacing: 1.5px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
+  color: #9ea5b5;
 }
 
-.ab-hero__media {
-  line-height: 0;
+.ab-hero__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-hero__specs li {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px 14px;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.ab-hero__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255, 117, 31, 0.14) 0%, rgba(11, 12, 16, 0) 70%);
 }
 
 .ab-hero__video {
@@ -385,7 +413,8 @@ button {
   height: auto;
   max-height: 70vh;
   object-fit: contain;
-  object-position: center;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 76%);
+  mask-image: radial-gradient(ellipse at center, #000 50%, transparent 76%);
 }
 
 /* ---------- Trust bar / stats ---------- */
@@ -1225,11 +1254,12 @@ button {
 
 @media (max-width: 768px) {
   .ab-hero {
-    padding-top: 72px;
+    padding-block: 88px 48px;
   }
 
-  .ab-hero__inner {
-    padding-bottom: 24px;
+  .ab-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .ab-header__burger {
