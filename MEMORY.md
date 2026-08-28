@@ -129,6 +129,36 @@
     Material **8**, Cable Cranes **8** кадров. Все 32 ссылки на изображения валидны (0 битых).
 31. **Очистка:** удалены 22 осиротевших файла изображений (~18 МБ), не используемых нигде.
 
+### [Правки] 2026-08-28 — Упрощение воронки: без форм и модалок
+
+32. **Стратегия.** Лендинг переведён с локальной формы заявки на прямую воронку B2B-трафика
+    на cdc.company: форма расчёта, модалка успеха и модалки «Learn more» удалены.
+33. **index.html.** Шапка: CTA «Get a quote» → «Visit CDC Website» (external); в nav добавлен
+    пункт «Recognition», удалён «Contact». Conversion/form заменён финальным блоком `.ab-cta`
+    (#visit) со списком преимуществ и кнопкой на cdc.company. Удалены SUCCESS MODAL и
+    SOLUTION MODAL, кнопки «Learn more» в карточках решений.
+34. **main.js.** Удалены валидация формы + mailto-фолбэк, модалка успеха, данные и логика
+    solution-модалок. Остались: скролл-шапка, бургер, reveal, play/pause видео, слайдеры.
+35. **landing.css.** Добавлены стили `.ab-cta` и `.ab-btn--cta`; удалены мёртвые стили
+    `.ab-convert`, `.ab-form`, `.ab-modal`, `.ab-smodal`, `.ab-solution__link` и их media-ветки.
+    Скобки сбалансированы (198/198).
+36. **Изображение.** `cdc-airbridge-technology.png` → `airbridge-module-clean.png`
+    (flood-fill белого фона из `cdc-airbridge-technology.jpeg`, `scripts/remove_white_bg.py`,
+    RGBA 1512×1600).
+37. **Валидация.** `node --check` OK; HTML — 7 section / 3 article / 0 form / 1 h1 / 2 video;
+    40 локальных ссылок без битых (2 PDF с пробелами в именах валидны).
+
+### [Аудит] 2026-08-28 — Мульти-агентный аудит + точечные правки
+
+38. **Hero (УТП за 3 сек).** Подзаголовок теперь явно описывает ключевое отличие —
+    «self-propelled drive unit travelling along a stationary cable».
+39. **Фото-архив.** Из слайдеров удалены неаутентичные кадры (3D-рендеры `passenger-render-*`,
+    AI-рендер `material-render-ai`, generic-crane `cable-crane-*`/`cable-cranes`,
+    `material-crane-desert`, `material-ropeways-cdc-4`). Остались только кадры гусеничного
+    модуля: Passenger 2 / Material 4 / Cable Cranes 4.
+40. **Воронка.** В каждую карточку решения возвращена ссылка-выход на cdc.company
+    (`.ab-solution__cta` → passenger-ropeways / material-ropeways / cable-cranes).
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
@@ -211,8 +241,8 @@
    самостоятельная, не копирует разметку Divi (лёгкая и чистая).
 3. Все медиа и шрифты — локально в `./assets/` (без внешних CDN).
 4. Три карточки решений (строго): Passenger Ropeways, Material Ropeways, Cable Cranes.
-5. CTA-действия: «Перейти на cdc.company» (внешняя ссылка) + форма «Расчёт проекта»
-   (в Этапе 2 — локальная обработка + mailto/info@cdc.company как fallback).
+5. CTA-действия: единая воронка на cdc.company (внешние ссылки в шапке, hero и финальном CTA).
+   Локальная форма/модалки удалены (см. правки 2026-08-28).
 
 ## Статус
 - [x] Этап 1: материалы отсортированы и изучены.
