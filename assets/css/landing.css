@@ -344,7 +344,7 @@ button {
   background: var(--cdc-dark);
   color: #fff;
   text-align: center;
-  padding-block: clamp(110px, 14vw, 150px) clamp(56px, 7vw, 90px);
+  padding-block: 72px 40px;
 }
 
 .ab-hero-title__brand {
@@ -574,8 +574,8 @@ button {
 /* ---------- Solutions (3 cards) ---------- */
 .ab-solutions__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
 }
 
 .ab-solution {
@@ -679,7 +679,7 @@ button {
 }
 
 .ab-solution__title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 900;
   margin-bottom: 12px;
 }
@@ -1219,7 +1219,7 @@ button {
 
 @media (max-width: 768px) {
   .ab-hero-title {
-    padding-block: 88px 48px;
+    padding-block: 60px 22px;
   }
 
   .ab-header__burger {
