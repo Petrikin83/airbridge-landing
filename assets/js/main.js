@@ -77,11 +77,40 @@
     featureVideo.addEventListener('ended', () => setPlaying(false));
   }
 
-  /* ---------- Solution sliders (auto fade every 4s + dots) ---------- */
+  /* ---------- Solution sliders (hardcoded image routing) ---------- */
+  // Strict category binding — photos are hardcoded per solution (no cranes in ropeways, etc.)
+  const SOLUTION_IMAGES = {
+    'passenger-material': [
+      'assets/images/airbridge-passenger-1.jpg',
+      'assets/images/airbridge-passenger-3.jpg',
+      'assets/images/airbridge-material-4.jpg',
+      'assets/images/airbridge-material-2.jpg',
+      'assets/images/airbridge-material-3.jpg',
+      'assets/images/material-hero-module-mountain.jpg'
+    ],
+    'cable': [
+      'assets/images/airbridge-cable-2.jpg',
+      'assets/images/airbridge-cable-1.jpg',
+      'assets/images/airbridge-cable-3.jpg',
+      'assets/images/cable-airbridge.jpg'
+    ]
+  };
+
   document.querySelectorAll('.js-slider').forEach((slider) => {
-    const slides = slider.querySelectorAll('.ab-slider__slide');
+    const slidesWrap = slider.querySelector('.ab-slider__slides');
     const dotsWrap = slider.querySelector('.ab-slider__dots');
-    if (!slides.length || !dotsWrap) return;
+    const key = slider.dataset.solution;
+    const sources = SOLUTION_IMAGES[key] || [];
+    if (!slidesWrap || !dotsWrap || !sources.length) return;
+
+    const slides = sources.map((src, i) => {
+      const img = document.createElement('img');
+      img.className = 'ab-slider__slide' + (i === 0 ? ' is-active' : '');
+      img.src = src;
+      img.alt = 'AirBridge® ' + (key === 'cable' ? 'cable crane' : 'ropeway') + ' — slide ' + (i + 1);
+      slidesWrap.appendChild(img);
+      return img;
+    });
 
     const dots = [];
     slides.forEach((_, i) => {
