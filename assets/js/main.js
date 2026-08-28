@@ -161,9 +161,10 @@
       ],
       images: [
         'assets/images/airbridge-passenger-1.jpg',
-        'assets/images/airbridge-passenger-2.jpg',
         'assets/images/airbridge-passenger-3.jpg',
-        'assets/images/airbridge-passenger-4.jpg'
+        'assets/images/passenger-render-harbor.jpg',
+        'assets/images/passenger-render-river.jpg',
+        'assets/images/passenger-render-sunset.jpg'
       ]
     },
     material: {
@@ -179,10 +180,14 @@
         ['Key benefits', 'Reduced haul roads, minimal ground impact, lower OPEX']
       ],
       images: [
-        'assets/images/airbridge-material-1.png',
-        'assets/images/airbridge-material-2.png',
-        'assets/images/airbridge-material-3.png',
-        'assets/images/airbridge-material-4.jpg'
+        'assets/images/airbridge-material-4.jpg',
+        'assets/images/airbridge-material-2.jpg',
+        'assets/images/airbridge-material-3.jpg',
+        'assets/images/material-hero-module-mountain.jpg',
+        'assets/images/material-cam.jpg',
+        'assets/images/material-render-ai.jpg',
+        'assets/images/material-crane-desert.jpg',
+        'assets/images/material-ropeways-cdc-4.jpg'
       ]
     },
     cable: {
@@ -198,11 +203,14 @@
         ['AirBridge® evolution', 'Long-distance, self-propelled, automation-ready']
       ],
       images: [
-        'assets/images/airbridge-cable-1.png',
         'assets/images/airbridge-cable-2.jpg',
+        'assets/images/airbridge-cable-1.jpg',
         'assets/images/airbridge-cable-3.jpg',
-        'assets/images/airbridge-cable-4.jpg',
-        'assets/images/airbridge-cable-5.jpg'
+        'assets/images/cable-crane-1.jpg',
+        'assets/images/cable-airbridge.jpg',
+        'assets/images/cable-crane-15.jpg',
+        'assets/images/cable-crane-16.jpg',
+        'assets/images/cable-cranes.jpg'
       ]
     }
   };
