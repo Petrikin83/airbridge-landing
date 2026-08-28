@@ -384,17 +384,17 @@ button {
 }
 
 .ab-hero__title {
-  margin-bottom: 22px;
+  margin-bottom: 40px;
 }
 
 .ab-hero__brand {
   display: block;
-  font-family: var(--cdc-font-display);
-  font-weight: 400;
-  font-size: clamp(56px, 9.5vw, 126px);
-  line-height: 0.95;
+  font-family: var(--cdc-font-display), var(--cdc-font-body);
+  font-weight: 900;
+  font-size: clamp(46px, 14.5vw, 160px);
+  line-height: 0.9;
   color: var(--cdc-orange);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .text-orange {
@@ -410,14 +410,6 @@ button {
   color: #ffb47a;
   letter-spacing: 0.01em;
   margin-top: 14px;
-}
-
-.ab-hero__subtitle {
-  font-size: clamp(18px, 2.2vw, 22px);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
-  max-width: 640px;
-  margin-bottom: 36px;
 }
 
 .ab-hero__actions {
@@ -533,6 +525,14 @@ button {
   border-radius: 50%;
   background: var(--cdc-orange);
   flex: 0 0 auto;
+}
+
+.ab-tech__caption {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #5a5a5a;
+  max-width: 560px;
 }
 
 .ab-tech__content .ab-title {
@@ -1280,14 +1280,14 @@ button {
 
   .ab-hero__actions {
     flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: 14px;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .ab-hero__actions .ab-btn {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    font-size: 14px;
+    padding: 10px 20px;
   }
 
   .ab-header__burger {
@@ -1340,11 +1340,6 @@ button {
 
   .ab-specs {
     grid-template-columns: 1fr;
-  }
-
-  .ab-hero__actions .ab-btn {
-    width: 100%;
-    justify-content: center;
   }
 
   .ab-footer__grid {
