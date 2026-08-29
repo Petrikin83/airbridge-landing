@@ -58,6 +58,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.15;
   color: var(--cdc-dark);
   letter-spacing: -0.01em;
+  text-wrap: balance;
+  hyphens: none;
 }
 
 button {
@@ -691,23 +693,6 @@ button {
   width: 22px;
 }
 
-.ab-solution__num {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 1;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--cdc-orange);
-  color: #fff;
-  font-weight: 900;
-  font-size: 18px;
-}
-
 .ab-solution__body {
   display: flex;
   flex-direction: column;
@@ -947,16 +932,6 @@ button {
 
 .ab-gallery__play:hover i {
   transform: scale(1.08);
-}
-
-.ab-gallery__feature-caption {
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .ab-gallery__side {
@@ -1262,6 +1237,14 @@ button {
   .ab-hero__grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .ab-section {
+    padding-block: 40px 48px;
+  }
+
+  .ab-solutions__grid {
+    gap: 24px;
   }
 
   .ab-header__burger {
