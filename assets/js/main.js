@@ -81,18 +81,33 @@
   // Strict category binding — photos are hardcoded per solution (no cranes in ropeways, etc.)
   const SOLUTION_IMAGES = {
     'passenger-material': [
-      'assets/images/solutions/passengers_material/airbridge-material-2.jpg',
-      'assets/images/solutions/passengers_material/airbridge-material-3.jpg',
-      'assets/images/solutions/passengers_material/airbridge-material-4.jpg',
-      'assets/images/solutions/passengers_material/airbridge-passenger-1.jpg',
-      'assets/images/solutions/passengers_material/airbridge-passenger-3.jpg',
-      'assets/images/solutions/passengers_material/material-hero-module-mountain.jpg'
+      'assets/images/solutions/passengers_material/passenger material 1.jpg',
+      'assets/images/solutions/passengers_material/passenger material 10.jpeg',
+      'assets/images/solutions/passengers_material/passenger material 11.jpeg',
+      'assets/images/solutions/passengers_material/passenger material 12.jpeg',
+      'assets/images/solutions/passengers_material/passenger material 13.jpeg',
+      'assets/images/solutions/passengers_material/passenger material 14.jpeg',
+      'assets/images/solutions/passengers_material/passenger material 2.jpg',
+      'assets/images/solutions/passengers_material/passenger material 3.jpg',
+      'assets/images/solutions/passengers_material/passenger material 4.png',
+      'assets/images/solutions/passengers_material/passenger material 5.png',
+      'assets/images/solutions/passengers_material/passenger material 6.jpg',
+      'assets/images/solutions/passengers_material/passenger material 7.jpg',
+      'assets/images/solutions/passengers_material/passenger material 8.jpg',
+      'assets/images/solutions/passengers_material/passenger material 9.jpg'
     ],
     'cable': [
-      'assets/images/solutions/cable_cranes/airbridge-cable-1.jpg',
-      'assets/images/solutions/cable_cranes/airbridge-cable-2.jpg',
-      'assets/images/solutions/cable_cranes/airbridge-cable-3.jpg',
-      'assets/images/solutions/cable_cranes/cable-airbridge.jpg'
+      'assets/images/solutions/cable_cranes/cable_cranes 1.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes10.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes11.jpeg',
+      'assets/images/solutions/cable_cranes/cable_cranes2.png',
+      'assets/images/solutions/cable_cranes/cable_cranes3.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes4.png',
+      'assets/images/solutions/cable_cranes/cable_cranes5.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes6.jpeg',
+      'assets/images/solutions/cable_cranes/cable_cranes7.png',
+      'assets/images/solutions/cable_cranes/cable_cranes8.png',
+      'assets/images/solutions/cable_cranes/cable_cranes9.png'
     ]
   };
 
