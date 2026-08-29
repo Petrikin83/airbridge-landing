@@ -414,14 +414,14 @@ button {
   object-fit: contain;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #16181e;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  background: #14161d;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
 /* ---------- Trust bar / stats ---------- */
 .ab-trust {
-  background: #111319;
+  background: #101218;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
