@@ -343,6 +343,7 @@ button {
 
 /* ---------- Hero (dark high-tech, 2-column) ---------- */
 .ab-hero {
+  position: relative;
   background: #0b0c10;
   color: #fff;
   padding-block: 104px 72px;
@@ -419,6 +420,34 @@ button {
   background: #14161d;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+}
+
+.ab-hero__scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  transform: translateX(-50%);
+  animation: ab-scroll-bounce 2.2s infinite;
+  transition: opacity 0.4s ease;
+}
+
+.ab-hero__scroll.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes ab-scroll-bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
 }
 
 /* ---------- Trust bar / stats ---------- */
@@ -625,12 +654,13 @@ button {
   overflow: hidden;
   border: 1px solid rgba(46, 46, 46, 0.08);
   box-shadow: var(--cdc-shadow-sm);
-  transition: transform var(--cdc-transition), box-shadow var(--cdc-transition);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .ab-solution:hover {
   transform: translateY(-8px);
-  box-shadow: var(--cdc-shadow-lg);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 117, 31, 0.4);
 }
 
 .ab-solution__media {

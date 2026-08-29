@@ -14,6 +14,16 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- Hero scroll indicator (fade on scroll) ---------- */
+  const scrollIndicator = document.querySelector('.ab-hero__scroll');
+  if (scrollIndicator) {
+    const toggleIndicator = () => {
+      scrollIndicator.classList.toggle('is-hidden', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', toggleIndicator, { passive: true });
+    toggleIndicator();
+  }
+
   /* ---------- Mobile burger menu ---------- */
   const burger = document.querySelector('.ab-header__burger');
   const nav = document.querySelector('.ab-nav');
@@ -53,6 +63,48 @@
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
 
+  /* ---------- Trust bar animated counters ---------- */
+  const COUNTERS = [
+    { sel: '.ab-stat:nth-child(1) .ab-stat__value', count: 500, render: (n) => '+<span>' + n + '%</span>' },
+    { sel: '.ab-stat:nth-child(2) .ab-stat__value', count: 200, render: (n) => n + '<span>+</span>' },
+    { sel: '.ab-stat:nth-child(3) .ab-stat__value', count: 3, render: (n) => 'Top <span>' + n + '</span>' },
+    { sel: '.ab-stat:nth-child(4) .ab-stat__value', count: 4000, render: (n) => n.toLocaleString('en-US') + '<span>m+</span>' }
+  ];
+
+  const animateCounter = (el, count, render, duration) => {
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = render(Math.round(eased * count));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const trustBar = document.querySelector('.ab-trust');
+  const counterEls = COUNTERS
+    .map((c) => ({ ...c, el: document.querySelector(c.sel) }))
+    .filter((c) => c.el);
+
+  if (counterEls.length) {
+    counterEls.forEach((c) => { c.el.innerHTML = c.render(0); });
+
+    if ('IntersectionObserver' in window && trustBar) {
+      const counterIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            counterEls.forEach((c) => animateCounter(c.el, c.count, c.render, 1600));
+            counterIO.unobserve(trustBar);
+          }
+        });
+      }, { threshold: 0.3 });
+      counterIO.observe(trustBar);
+    } else {
+      counterEls.forEach((c) => { c.el.innerHTML = c.render(c.count); });
+    }
+  }
+
   /* ---------- Gallery feature video (play/pause) ---------- */
   const featureVideo = document.querySelector('.js-gallery-video');
   const playToggle = document.querySelector('.js-gallery-play');
@@ -89,8 +141,8 @@
       'assets/images/solutions/passengers_material/passenger material 14.jpeg',
       'assets/images/solutions/passengers_material/passenger material 2.jpg',
       'assets/images/solutions/passengers_material/passenger material 3.jpg',
-      'assets/images/solutions/passengers_material/passenger material 4.png',
-      'assets/images/solutions/passengers_material/passenger material 5.png',
+      'assets/images/solutions/passengers_material/passenger material 4.jpg',
+      'assets/images/solutions/passengers_material/passenger material 5.jpg',
       'assets/images/solutions/passengers_material/passenger material 6.jpg',
       'assets/images/solutions/passengers_material/passenger material 7.jpg',
       'assets/images/solutions/passengers_material/passenger material 8.jpg',
@@ -100,14 +152,14 @@
       'assets/images/solutions/cable_cranes/cable_cranes 1.jpg',
       'assets/images/solutions/cable_cranes/cable_cranes10.jpg',
       'assets/images/solutions/cable_cranes/cable_cranes11.jpeg',
-      'assets/images/solutions/cable_cranes/cable_cranes2.png',
+      'assets/images/solutions/cable_cranes/cable_cranes2.jpg',
       'assets/images/solutions/cable_cranes/cable_cranes3.jpg',
-      'assets/images/solutions/cable_cranes/cable_cranes4.png',
+      'assets/images/solutions/cable_cranes/cable_cranes4.jpg',
       'assets/images/solutions/cable_cranes/cable_cranes5.jpg',
       'assets/images/solutions/cable_cranes/cable_cranes6.jpeg',
-      'assets/images/solutions/cable_cranes/cable_cranes7.png',
-      'assets/images/solutions/cable_cranes/cable_cranes8.png',
-      'assets/images/solutions/cable_cranes/cable_cranes9.png'
+      'assets/images/solutions/cable_cranes/cable_cranes7.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes8.jpg',
+      'assets/images/solutions/cable_cranes/cable_cranes9.jpg'
     ]
   };
 
