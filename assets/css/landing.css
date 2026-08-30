@@ -1274,7 +1274,37 @@ button {
   }
 
   .ab-solutions__grid {
+    grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .ab-hero__visual {
+    display: none;
+  }
+
+  .ab-specs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-features {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-recognition__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-recognition__awards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ab-recognition__metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-footer__grid {
+    grid-template-columns: 1fr;
   }
 
   .ab-header__burger {
@@ -1439,6 +1469,58 @@ button {
   .ab-apps__grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- Comparison table ---------- */
+.ab-table-wrap {
+  overflow-x: auto;
+}
+
+.ab-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.ab-compare-table th,
+.ab-compare-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ab-compare-table thead th {
+  background: #1a1a1a;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ab-compare-table__highlight {
+  background: rgba(255, 107, 0, 0.08);
+  color: #ff6b00;
+  font-weight: 600;
+}
+
+.ab-compare-table thead .ab-compare-table__highlight {
+  background: #ff6b00;
+  color: #fff;
+}
+
+.ab-compare-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 640px) {
+  .ab-compare-table th,
+  .ab-compare-table td {
+    padding: 0.65rem 0.5rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Dark-section feature cards readability */
+.ab-section--dark .ab-feature__title {
+  color: var(--cdc-dark);
 }
 
 
