@@ -1441,30 +1441,6 @@ button {
   line-height: 1.6;
 }
 
-.ab-iso {
-  margin-top: 32px;
-  padding: 24px 20px;
-  text-align: center;
-  border: 1px solid rgba(46, 46, 46, 0.08);
-  border-radius: var(--cdc-radius-md);
-  background: var(--cdc-light);
-}
-
-.ab-iso__badge {
-  display: block;
-  font-family: var(--cdc-font-display), var(--cdc-font-body);
-  font-size: 20px;
-  color: var(--cdc-dark);
-  margin-bottom: 6px;
-}
-
-.ab-iso__sub {
-  font-size: 13px;
-  color: #6b6b6b;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 @media (max-width: 768px) {
   .ab-apps__grid {
     grid-template-columns: 1fr;
