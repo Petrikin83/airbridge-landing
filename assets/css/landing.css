@@ -371,6 +371,11 @@ button {
   color: #ff751f;
 }
 
+.ab-brand {
+  color: #FF6B00;
+  font-weight: inherit;
+}
+
 .ab-hero__subtitle {
   margin: 18px 0 0;
   font-family: var(--cdc-font-body);
@@ -1279,7 +1284,9 @@ button {
   }
 
   .ab-hero__visual {
-    display: none;
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
   }
 
   .ab-specs {
