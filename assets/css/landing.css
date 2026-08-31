@@ -1506,6 +1506,22 @@ button {
   color: var(--cdc-dark);
 }
 
+/* ISO certifications */
+.ab-iso { text-align: center; margin-top: 2rem; }
+.ab-iso__badge {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+}
+.ab-iso__sub {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
 
 
 
