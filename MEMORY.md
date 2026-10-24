@@ -159,9 +159,87 @@
 40. **Воронка.** В каждую карточку решения возвращена ссылка-выход на cdc.company
     (`.ab-solution__cta` → passenger-ropeways / material-ropeways / cable-cranes).
 
+### [Правки] 2026-08-28 — Финальная сборка страницы (10:33–21:22)
+
+41. **Полная сборка (`daf325c`).** Лендинг доведён до цельного состояния: header, dark-hero,
+    trust-bar, technology, solutions, recognition, gallery, финальный CTA (`#visit`), footer;
+    навигация и внешние ссылки ведут на cdc.company.
+42. **Типографика и мобильный hero (`6731520`, `602576d`).** Полностью оранжевый «AirBridge»,
+    убран дублирующий тег, компактные кнопки на мобильных, перенос описания hero, кадрирование
+    видео под мобильный экран.
+43. **Анимации и видео (`e4e48c0`, `698e90a`).** Boomerang-видео в hero, кнопки из hero убраны,
+    видео не обрезается на мобильных, добавлены scroll-reveal анимации; шапка сужена,
+    заголовочный блок переведён в серый с оранжевым акцентом.
+44. **UI/UX-полировка (`de0b22b`, `7a9e5da`).** Уменьшен hero-title, решения сведены к
+    **2 карточкам** (Passenger & Material Ropeways + Cable Cranes), гармонизированы отступы;
+    исправлена маршрутизация изображений слайдеров.
+45. **Seamless hero + жёсткая привязка фото (`199d2ee`, `b26cd1b`).** Бесшовная «сцена» hero,
+    скрипты `scripts/route_slider_images.py` и `scripts/sync_exact_user_paths.py` — фотографии
+    берутся строго из заданных папок на диске D:; тёмный high-tech hero.
+
+### [Правки] 2026-08-29 — Фото, вес страницы, полировка
+
+46. **Фото из папок пользователя (`ef6722a`, `77d2caa`, `force_user_folders.py`,
+    `hard_reset_photos.py`).** Убрана овальная виньетка, секции стыкуются бесшовно, слайдеры
+    жёстко перезаписаны кадрами из указанных папок.
+47. **Скорость загрузки (`73c3cb4`, `compress_solutions_images.py`).** Фото решений сжаты
+    (например, 8.99 МБ → 313 КБ), в hero добавлена high-tech display-карточка.
+48. **Чистка UI (`3a14a32`).** Убраны бейджи 01/02 и подпись поверх видео, выровнена мобильная
+    типографика.
+49. **Финальная полировка (`e8b8c74`, `rename_png_to_jpg.py`).** Анимированные счётчики метрик
+    в `main.js`, hover-glow эффекты, расширения ассетов приведены к реальному формату (png→jpg).
+
+### [Правки] 2026-08-30 — Контент по канону, сравнение, KSA, факт-чек
+
+50. **Канон контента (`72643cd`).** Значения приведены к материалам клиента: **60° угол подъёма
+    и 8 м/с** (вместо 90°/10 м/с с сайта CDC), Neology (аммиак), ItalDesign, ISO. Добавлены блоки
+    «The Global Opportunity» (рынок), миссия/технология, «Key Applications». Обновлены meta/OG/
+    Twitter/canonical (`https://petrikin83.github.io/airbridge-landing/`). Видео переименовано
+    `airbridge-motion-galiya.mp4` → `airbridge-motion-01.mp4`. PDF-презентации удалены из
+    репозитория (их текстовые выжимки остались в `airbridge_materials/texts/`).
+51. **Сравнение и Zero-Emission (`01ceb95`).** Таблица сравнения (Conventional / 3S / AirBridge),
+    блок «100% Zero-Emission Autonomy» (аммиак, Neology), проекты KSA (NEOM Trojena, AlUla,
+    Soudah Peaks, Caspian), `robots.txt`, мобильные фиксы.
+52. **Строгий факт-чек (`bd34973`, `scripts/fact_index.py`).** Утверждения сверены с локальными
+    материалами, неподтверждённые формулировки убраны.
+53. **Брендинг и мобильное видео (`c128bd2`).** Возвращено видео в мобильном hero, «AirBridge®»
+    выделен оранжевым через `.ab-brand` во всех заголовках.
+
+### [Правки] 2026-08-31 — ISO, инструменты проверки, документация
+
+54. **ISO-блок (`2101935`).** В «Proven Engineering & Recognition» возвращён блок
+    `ISO 9001 · ISO 14001 · ISO 45001` (+ стили `.ab-iso`).
+55. **Источник ISO восстановлен.** Добавлен `scripts/extract_pptx_text.py` (текст PPTX →
+    `airbridge_materials/texts/`). Извлечены 3 источника: `AirBridge V1`, `AirBridge by CDC - V7`,
+    `CDC Corporate Presentation 2026 (1)`. ISO подтверждён дословно: «ISO 9001:2015 Quality
+    Management», «ISO 14001:2015 Environmental Management», «ISO 45001:2018 Occupational Health
+    & Safety». **Важно:** ISO-блок был «не подтверждён» только потому, что этот источник не был
+    извлечён в текстовый слой.
+56. **`scripts/fact_index.py` переработан.** Читает только клиентские материалы
+    (`airbridge_materials/texts/`); наши `MEMORY.md`/`TECH_SPEC.md` больше не считаются
+    доказательством. Вывод принудительно в UTF-8 (раньше падал с `UnicodeEncodeError` на `×`/`°`).
+    Список утверждений приведён к текущей странице (убраны 90°/10 м/с), отраслевые бенчмарки
+    таблицы сравнения вынесены в `BENCHMARKS`. Итог прогона: **44/44 утверждения подтверждены**.
+57. **`scripts/check_site.py` добавлен.** Проверяет наличие всех локальных ассетов, совпадение
+    якорей, ровно один `<h1>`, `alt` у изображений, `<source>` у видео. Текущий прогон:
+    16 локальных ссылок, 7 якорей, 2 видео — OK.
+58. **Проверка прода.** `https://petrikin83.github.io/airbridge-landing/` — HTTP 200, `<title>`
+    совпадает, 714 строк HTML идентичны локальной версии; CSS/JS/видео/robots.txt отдаются 200;
+    `node --check assets/js/main.js` — OK. Сервер для локальной проверки: `python -m http.server 8085`.
+59. **Чистка ассетов.** Удалены 11 изображений (~2.6 МБ), на которые больше нет ссылок ни в
+    `index.html`, ни в `main.js`, ни в `landing.css`: `airbridge-cable-1/2/3.jpg`,
+    `airbridge-material-2/3/4.jpg`, `airbridge-passenger-1/3.jpg`, `cable-airbridge.jpg`,
+    `cdc-airbridge-technology.jpeg`, `material-hero-module-mountain.jpg`. Восстанавливаются из
+    истории git (до коммита с чисткой).
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
+
+На странице подключены только: `cdc-tokens.css`, `fonts.css`, `font-awesome-all.min.css`,
+`font-awesome-v4-shims.min.css`, `landing.css`. Остальные файлы ниже — эталонные стили CDC
+(скопированы для сверки, из `index.html` не загружаются).
+
 | Файл | Источник |
 |------|----------|
 | `et-core-unified-9.min.css` | `site/wp-content/et-cache/9/` (ядро Divi, главная страница) |
@@ -176,6 +254,10 @@
 | `cdc-tokens.css` | Создан вручную — сводка дизайн-токенов CDC |
 
 ### JS (assets/js/)
+
+На странице подключён только `main.js` (vanilla). Остальные файлы — эталонные скрипты CDC
+(jQuery, Divi, плагины галереи), не подключаются и служат только референсом.
+
 | Файл | Источник |
 |------|----------|
 | `divi-scripts.min.js` | `site/wp-content/themes/Divi/js/scripts.min.js` |
@@ -190,27 +272,52 @@
 - `lato-S6u*.woff2` (18 файлов) — Lato 100/300/400/700/900 normal+italic (latin/latin-ext).
 - `fa-brands-400`, `fa-regular-400`, `fa-solid-900`, `fa-v4compatibility` (ttf + woff2) — Font Awesome 6.5.2.
 
-### Images (assets/images/)
-`cdc-logo-orange-full.png` (логотип шапки), `cdc-favicon-*.png` (32/180/192),
-`cdc-logo-leader-crescita.png` (бейдж Leader della Crescita), `cdc-hero-render.png`
-(render с логотипом), `cdc-airbridge-technology.png`, `cdc-innovation-airbridge.jpeg`,
-`cdc-passenger-ropeways-cover.jpg`, `cdc-material-ropeways.jpg`, `cdc-cable-cranes.jpeg`,
-`cdc-passenger-ropeways.png`, `cdc-passenger-ropeways-tech.png`,
-`cdc-material-ropeways-tech.jpg`, `cdc-cables-v4.png`.
+### Images (assets/images/) — 36 файлов (~8.5 МБ после чистки 31.08)
 
-### Media (assets/media/)
-- `cdc-hero-video.mp4` — фоновое видео главной страницы CDC (13.5 МБ).
-- `airbridge-demo-1.mp4`, `airbridge-demo-2.mp4` — видео клиента.
+Корень:
+- `cdc-logo-orange-full.png` — логотип шапки и футера.
+- `cdc-favicon-32/180/192.png` — фавиконы.
+- `cdc-hero-render.png` — изображение для OG/Twitter.
+- `airbridge-module-clean.png` — модуль без фона (блок технологии).
+- `cdc-award-ft-2026.png`, `cdc-award-winner-2026.png`, `cdc-logo-leader-crescita.png` — награды.
+- `hero-poster.jpg`, `airbridge-motion-poster.jpg` — постеры видео hero и showcase.
+
+`solutions/passengers_material/` — 14 кадров, `solutions/cable_cranes/` — 11 кадров.
+Пути жёстко зашиты в `SOLUTION_IMAGES` (`assets/js/main.js`), поэтому слайдеры показывают
+строго «свои» категории (в канатных кранах нет пассажирских кабин и наоборот).
+
+### Media / Videos
+- `assets/media/hero-pendulum.mp4` (2.0 МБ) — фоновое видео hero.
+- `assets/media/airbridge-demo-1.mp4` (3.0 МБ) — исходный демо-ролик клиента (на странице не используется).
+- `assets/videos/airbridge-motion-01.mp4` (6.2 МБ) — основной ролик секции Showcase
+  (обрезан с 5.0 с через `scripts/trim_video.py`, постер `airbridge-motion-poster.jpg`).
+
+### Скрипты (scripts/)
+- Извлечение материалов: `extract_pdf_text.py`, `extract_pptx_text.py`, `extract_html_text.py`,
+  `extract_airbridge_images.py`, `map_pptx.py`.
+- Фотографии: `sort_photos.py`, `prepare_airbridge_images.py`, `remove_white_bg.py`,
+  `finalize_photos.py`, `route_slider_images.py`, `sync_exact_user_paths.py`,
+  `force_user_folders.py`, `hard_reset_photos.py`, `compress_solutions_images.py`,
+  `rename_png_to_jpg.py`.
+- Видео: `trim_video.py`.
+- Проверки качества: `fact_index.py` (факт-чек по клиентским материалам),
+  `check_site.py` (ссылки, якоря, разметка).
 
 ## Ключевые факты / УТП (извлечены из материалов)
 
-**Технические параметры AirBridge® (источник — сайт CDC, раздел Innovation):**
+**Технические параметры AirBridge® (канон лендинга — презентации клиента):**
 - Длина системы: без фиксированного лимита.
-- Макс. угол подъёма: **до 90°** (в PDF клиента — до 60°, см. расхождение ниже).
+- Макс. угол подъёма: **до 60°**.
 - Полезная нагрузка: **до 40 тонн**.
 - Пролёт между опорами: **до 3 км**.
-- Рабочая скорость: **до 10 м/с** (в PDF клиента — до 8 м/с).
+- Рабочая скорость: **до 8 м/с**.
 - Защищено патентом **WO2017064014** + **52 технических инновации**.
+- Соответствие **EU Regulation 2016/424**.
+
+**Сертификации (подтверждено `CDC Corporate Presentation 2026 (1).pptx`):**
+- **ISO 9001:2015** — Quality Management.
+- **ISO 14001:2015** — Environmental Management.
+- **ISO 45001:2018** — Occupational Health & Safety.
 
 **Экономика (общее в PDF и на сайте):**
 - До **100%** утилизации мощности (традиционные канатки — <10% средней загрузки).
@@ -229,28 +336,48 @@
 - Партнёрство с **Neology** (Швейцария): 100% zero-emission автономия на **аммиаке**.
 
 ## Расхождения в данных (важно!)
-- **Макс. угол подъёма:** сайт CDC → «до 90°», PDF Red Sea Global V5 → «до 60°».
-  → На лендинге использовать значение с сайта CDC (90°) как официальное; при необходимости
-  уточнить у клиента.
-- **Скорость:** сайт CDC → «до 10 м/с», PDF → «до 8 м/с».
-  → Использовать 10 м/с (сайт), уточнить у клиента.
+
+- **Макс. угол подъёма:** cdc.company → «до 90°», презентации клиента (Red Sea Global V5,
+  Discovery Land Company V5) → «до 60°».
+- **Скорость:** cdc.company → «до 10 м/с», презентации клиента → «до 8 м/с».
+- **Решение (коммит `72643cd`, «align content to canon»):** на лендинге используются значения из
+  презентаций клиента — **60° и 8 м/с**. Они фигурируют в `.ab-hero__specs`, `.ab-spec__value`
+  и в таблице сравнения.
+- Если клиент подтвердит 90°/10 м/с как официальные, обновить эти три места **одновременно**
+  и перепрогнать `python scripts/fact_index.py` (в клиентских материалах есть только 60°/8 м/с,
+  поэтому значения 90°/10 м/с потребуют нового источника).
+
+## Отраслевые бенчмарки (не заявления клиента)
+- Таблица сравнения содержит ориентиры по традиционным канатным дорогам (до 5 км) и 3S (до 1.5 км
+  пролёт). В клиентских материалах этих цифр нет — это общеотраслевые значения, поэтому в
+  `fact_index.py` они вынесены в отдельный блок `BENCHMARKS` и не считаются «неподтверждёнными».
 
 ## Принятые решения
 1. Лендинг — **vanilla HTML/CSS/JS** без сборщика (быстрый деплой на GitHub Pages).
 2. Использовать **дизайн-токены CDC** (оранжевый/тёмный/светлый, Lato + Goodly), но вёрстка
    самостоятельная, не копирует разметку Divi (лёгкая и чистая).
 3. Все медиа и шрифты — локально в `./assets/` (без внешних CDN).
-4. Три карточки решений (строго): Passenger Ropeways, Material Ropeways, Cable Cranes.
+4. Карточки решений: **2** — «Passenger & Material Ropeways» и «Cable Cranes» (объединены
+   в коммите `de0b22b`); раньше было три отдельные карточки.
 5. CTA-действия: единая воронка на cdc.company (внешние ссылки в шапке, hero и финальном CTA).
    Локальная форма/модалки удалены (см. правки 2026-08-28).
 
 ## Статус
+
 - [x] Этап 1: материалы отсортированы и изучены.
 - [x] Этап 1: UI-кит CDC извлечён в `./assets/`.
 - [x] Этап 1: системные документы созданы.
-- [x] Этап 2: `index.html` свёрстан, CSS/JS подключены (vanilla).
-- [x] Этап 2: `git init` + коммит `1374896` (ветка `main`).
-- [x] Этап 2: локальный сервер запущен — http://localhost:8085
-- [ ] (опционально) деплой на GitHub Pages — см. `DEPLOY.md`.
+- [x] Этап 2: `index.html` свёрстан, CSS/JS подключены (vanilla, без сборщика).
+- [x] Контент приведён к канону клиента: 60° / 8 м/с / 40 т / 3 км, Neology (аммиак),
+      ItalDesign, ISO 9001/14001/45001, проекты KSA.
+- [x] Локальный сервер: `python -m http.server 8085` → http://localhost:8085 (HTTP 200).
+- [x] Статическая проверка: `python scripts/check_site.py` — OK (16 ссылок, 7 якорей, 2 видео).
+- [x] Факт-чек: `python scripts/fact_index.py` — **44/44 утверждения подтверждены**
+      (бенчмарки таблицы сравнения вынесены отдельно).
+- [x] Деплой: **https://petrikin83.github.io/airbridge-landing/** (GitHub Pages, ветка `main`,
+      HTTP 200, контент идентичен локальному).
+- [x] Документация актуализирована: `MEMORY.md`, `README.md`, `DEPLOY.md` (31.08.2026).
+- [ ] (по запросу) аналитика/счётчики — только по явному согласованию.
+- [ ] (по подтверждению клиента) возможный перевод канона на 90°/10 м/с — см. раздел расхождений.
 
 
