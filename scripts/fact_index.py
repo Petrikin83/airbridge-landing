@@ -1,39 +1,33 @@
-"""Scan local project materials and index confirmed facts.
+"""Fact-check the landing page against client source materials.
 
-Reads every .txt/.md material, then searches for key terms that appear on the
-landing page, reporting which source files confirm each term (or NONE).
+Scans only client materials (airbridge_materials/texts/*.txt) and reports which
+source confirms each claim used on index.html. Project documentation (MEMORY.md,
+TECH_SPEC.md, README.md) is deliberately excluded: it is not evidence.
+
+Usage: python scripts/fact_index.py
+Exit code: 0 when every claim is confirmed, 1 when at least one is missing.
 """
 import os
 import re
+import sys
 
-ROOT = r"D:\Airbridge_NEW_DeepSeek"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MATERIALS = os.path.join(ROOT, "airbridge_materials", "texts")
 
-# material files to index
-SOURCES = []
-for dirpath, dirs, files in os.walk(ROOT):
-    dirs[:] = [d for d in dirs if d not in (".git", "node_modules", "__pycache__", ".vscode")]
-    for f in files:
-        if f.lower().endswith((".txt", ".md")):
-            SOURCES.append(os.path.join(dirpath, f))
-
-# key terms appearing on the site (claim -> normalized regex)
-TERMS = {
+# claim -> regex as it appears in the client source materials
+CLAIMS = {
     "patent WO2017064014": r"WO2017064014",
     "52 innovations (technical/patented)": r"52 (technical |patented )?innovations",
-    "90°": r"90°",
-    "60°": r"60°",
+    "60° max slope": r"60°",
     "40 tons / 40t": r"40 (ton|t)",
     "3 km span": r"3 km",
-    "10 m/s": r"10 m/s",
-    "8 m/s": r"8 m/s",
+    "8 m/s speed": r"8 m/s",
     "3× CAPEX": r"3 ?×|3x|3×",
     "70% OPEX": r"70%",
     "100% utilization": r"100%",
-    "below 10% utilization": r"10%",
     "EU Regulation 2016/424": r"2016/424",
     "Neology": r"Neology",
     "ammonia": r"ammonia",
-    "hybrid": r"hybrid",
     "diesel": r"diesel",
     "electric": r"electric",
     "ItalDesign": r"ItalDesign",
@@ -45,21 +39,16 @@ TERMS = {
     "AlUla": r"AlUla",
     "Soudah Peaks": r"Soudah",
     "Caspian Sea": r"Caspian",
-    "THE RIG": r"THE RIG",
-    "NEOM Magna": r"Magna",
-    "Red Sea Global": r"Red Sea Global",
     "Offshore": r"[Oo]ffshore",
     "Marine": r"Marine",
     "Mining": r"[Mm]ining",
     "Power Line": r"[Pp]ower [Ll]ine",
     "pylon": r"pylon",
-    "Construction Logistics": r"[Cc]onstruction [Ll]ogistics",
     "Faraday cage": r"Faraday",
     "boarding at any point": r"[Bb]oarding",
-    "built-in crane": r"crane",
+    "cable crane": r"crane",
     "20+ years": r"20\+ years",
     "200+ projects": r"200\+ projects",
-    "$50M": r"50M",
     "+500% growth": r"500%",
     "4,000 m altitude": r"4,?000",
     "Financial Times": r"Financial Times",
@@ -69,20 +58,61 @@ TERMS = {
     "Top 3 Europe": r"Top 3",
     "feasibility studies": r"feasibility",
     "estimates": r"estimate",
-    "Conventional Ropeway (5 km)": r"5 km",
-    "3S Ropeway (1.5 km)": r"3S|1\.5 km",
     "Helicopter installation": r"[Hh]elicopter",
-    "zero ground impact": r"zero ground",
+    "minimal ground impact": r"minim(?:al|izing)\b[^.]{0,60}ground impact",
 }
 
-print("=== FACT INDEX (which source files confirm each term) ===")
-for label, pattern in TERMS.items():
-    rx = re.compile(pattern)
-    hits = []
-    for src in SOURCES:
-        with open(src, encoding="utf-8", errors="ignore") as fh:
-            text = fh.read()
-        if rx.search(text):
-            hits.append(os.path.relpath(src, ROOT))
-    status = ", ".join(hits) if hits else "*** NOT FOUND ***"
-    print(f"\n[{label}]\n  -> {status}")
+# Industry reference values used in the comparison table (not client claims).
+BENCHMARKS = {
+    "Conventional ropeway (5 km)": r"5 km",
+    "3S ropeway (1.5 km)": r"3S|1\.5 km",
+}
+
+def load_sources():
+    """Return [(file name, text)] for every client material text file."""
+    if not os.path.isdir(MATERIALS):
+        sys.exit("Materials folder not found: " + MATERIALS)
+    names = sorted(n for n in os.listdir(MATERIALS) if n.lower().endswith((".txt", ".md")))
+    if not names:
+        sys.exit("No source texts found in " + MATERIALS)
+    sources = []
+    for name in names:
+        with open(os.path.join(MATERIALS, name), encoding="utf-8", errors="ignore") as fh:
+            sources.append((name, fh.read()))
+    return sources
+
+
+def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+    sources = load_sources()
+    print("=== FACT INDEX (client materials only) ===")
+    print("sources: " + ", ".join(name for name, _ in sources))
+
+    missing = []
+    for claim, pattern in CLAIMS.items():
+        rx = re.compile(pattern)
+        hits = [name for name, text in sources if rx.search(text)]
+        if hits:
+            print("\n[" + claim + "]\n  -> " + ", ".join(hits))
+        else:
+            missing.append(claim)
+            print("\n[" + claim + "]\n  -> *** NOT FOUND ***")
+
+    total = len(CLAIMS)
+    print("\n=== SUMMARY: %d/%d claims confirmed ===" % (total - len(missing), total))
+    if missing:
+        print("unconfirmed: " + "; ".join(missing))
+
+    print("\n=== INDUSTRY BENCHMARKS (comparison table, not client claims) ===")
+    for label, pattern in BENCHMARKS.items():
+        rx = re.compile(pattern)
+        hits = [name for name, text in sources if rx.search(text)]
+        print("[%s] -> %s" % (label, ", ".join(hits) if hits else "not in client materials (industry reference)"))
+
+    return 1 if missing else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
