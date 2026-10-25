@@ -242,15 +242,35 @@
     let index = 0;
     let timer = null;
 
+    const counter = slider.querySelector('.js-slider-counter');
+    let touchX = null;
+
     const goTo = (i) => {
       index = (i + slides.length) % slides.length;
       slides.forEach((s, j) => s.classList.toggle('is-active', j === index));
       dots.forEach((d, j) => d.classList.toggle('is-active', j === index));
+      if (counter) counter.textContent = (index + 1) + ' / ' + slides.length;
     };
 
     const start = () => { timer = setInterval(() => goTo(index + 1), 4000); };
     const restart = () => { clearInterval(timer); start(); };
 
+    // Swipe navigation (mobile): the dot row is replaced by a counter below 720px.
+    slider.addEventListener('touchstart', (event) => {
+      touchX = event.changedTouches[0].clientX;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (event) => {
+      if (touchX === null) return;
+      const delta = event.changedTouches[0].clientX - touchX;
+      if (Math.abs(delta) > 40) {
+        goTo(index + (delta < 0 ? 1 : -1));
+        restart();
+      }
+      touchX = null;
+    }, { passive: true });
+
+    goTo(0);
     start();
   });
 })();

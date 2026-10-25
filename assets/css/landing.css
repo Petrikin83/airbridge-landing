@@ -761,42 +761,54 @@ button {
 .ab-slider__dots {
   position: absolute;
   left: 50%;
-  bottom: 14px;
+  bottom: 8px;
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
-  gap: 14px;
+  gap: 4px;
 }
 
 .ab-slider__dot {
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 24px;
+  height: 24px;
   border-radius: 999px;
   background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: width var(--cdc-transition);
 }
 
-/* visible disc sits on the dot; inset creates a 22×22 px hit area */
+/* 24×24 px hit area, 10 px visible disc inside (WCAG 2.5.8) */
 .ab-slider__dot::before {
   content: '';
   position: absolute;
-  inset: -6px;
+  inset: 7px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
-  transition: background var(--cdc-transition);
-}
-
-.ab-slider__dot.is-active {
-  width: 22px;
+  transition: background var(--cdc-transition), inset var(--cdc-transition);
 }
 
 .ab-slider__dot.is-active::before {
+  inset: 7px 0;
   background: #fff;
+}
+
+/* Mobile slider indicator: a compact counter instead of 14 oversized dots */
+.ab-slider__counter {
+  display: none;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .ab-solution__body {
@@ -1578,36 +1590,90 @@ button {
   background: rgba(0, 0, 0, 0.02);
 }
 
-@media (max-width: 640px) {
-  .ab-compare-table th,
-  .ab-compare-table td {
-    padding: 0.65rem 0.5rem;
-    font-size: 0.82rem;
-  }
-
-  /* keep columns readable: swipe horizontally instead of 3-word line breaks */
-  .ab-compare-table {
-    min-width: 560px;
-  }
-
+/* Mobile comparison: each row becomes a readable card (no horizontal swipe).
+   ARIA roles on the table keep the semantics intact when display changes. */
+@media (max-width: 720px) {
   .ab-table-wrap {
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
   }
 
-  /* the AirBridge column stays visible while the table is swiped */
-  .ab-compare-table th:last-child,
+  .ab-compare-table,
+  .ab-compare-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .ab-compare-table thead {
+    display: none;
+  }
+
+  .ab-compare-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 14px;
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    background: var(--cdc-white);
+    border: 1px solid rgba(46, 46, 46, 0.1);
+    border-radius: 12px;
+  }
+
+  .ab-compare-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .ab-compare-table td {
+    display: block;
+    padding: 0;
+    border: 0;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+
+  .ab-compare-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: #6b6b6b;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ab-compare-table td:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(46, 46, 46, 0.1);
+    color: var(--cdc-dark);
+    font-size: 14.5px;
+    font-weight: 800;
+  }
+
+  .ab-compare-table td:first-child::before {
+    content: none;
+  }
+
+  .ab-compare-table td:nth-child(2),
+  .ab-compare-table td:nth-child(3) {
+    color: #4a4a4a;
+  }
+
   .ab-compare-table td:last-child {
-    position: sticky;
-    right: 0;
-    z-index: 1;
-    background: #fff7f2;
-    border-left: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: -12px 0 16px -12px rgba(0, 0, 0, 0.35);
+    grid-column: 1 / -1;
+    padding: 7px 9px;
+    border-radius: 8px;
+    background: rgba(255, 107, 0, 0.09);
+    font-weight: 700;
   }
 
-  .ab-compare-table thead th:last-child {
-    z-index: 2;
-    background: #ff6b00;
+  .ab-compare-table td:last-child::before {
+    margin-bottom: 1px;
+    color: var(--cdc-orange-ink);
+  }
+
+  .ab-compare-table tbody tr:hover {
+    background: var(--cdc-white);
   }
 }
 
@@ -1724,6 +1790,100 @@ button:focus-visible {
 
   .ab-recognition__metrics {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Mobile layout pass: tighter rhythm, compact footer ---------- */
+@media (max-width: 768px) {
+  /* slider: swipe + counter reads better than 14 dots on a 360px screen */
+  .ab-slider__dots {
+    display: none;
+  }
+
+  .ab-slider__counter {
+    display: inline-block;
+  }
+  .ab-hero {
+    padding-block: 76px 36px;
+  }
+
+  .ab-section {
+    padding-block: 32px 36px;
+  }
+
+  .ab-section-head {
+    margin-bottom: 22px;
+  }
+
+  .ab-lead {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .ab-feature {
+    padding: 22px 20px;
+  }
+
+  .ab-solution__body {
+    padding: 20px 20px 22px;
+  }
+
+  .ab-recognition-card {
+    padding: 22px 20px;
+  }
+
+  .ab-trust__grid {
+    gap: 18px;
+    padding-block: 24px;
+  }
+
+  .ab-specs {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* the power-options item is a phrase, not a figure: give it the full row */
+  .ab-specs > .ab-spec:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ab-spec__value {
+    font-size: 19px;
+  }
+
+  .ab-tech__caption {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .ab-footer {
+    padding-top: 44px;
+  }
+
+  .ab-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 18px;
+    padding-bottom: 32px;
+  }
+
+  .ab-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .ab-footer__grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ab-footer h3 {
+    margin-bottom: 12px;
+  }
+
+  .ab-footer__links {
+    gap: 8px;
+  }
+
+  .ab-footer__bottom {
+    padding-block: 16px;
   }
 }
 

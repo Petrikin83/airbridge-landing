@@ -28,6 +28,7 @@ CLAIMS = {
     "EU Regulation 2016/424": r"2016/424",
     "Neology": r"Neology",
     "ammonia": r"ammonia",
+    "hybrid": r"[Hh]ybrid",
     "diesel": r"diesel",
     "electric": r"electric",
     "ItalDesign": r"ItalDesign",
