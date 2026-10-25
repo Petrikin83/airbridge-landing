@@ -117,8 +117,16 @@ button {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cdc-orange);
+  color: var(--cdc-orange-ink);
   margin-bottom: 18px;
+}
+
+/* On dark surfaces the bright brand orange is readable, on light it is not */
+.ab-section--dark .ab-eyebrow,
+.ab-cta .ab-eyebrow,
+.ab-hero .ab-eyebrow,
+.ab-trust .ab-eyebrow {
+  color: var(--cdc-orange);
 }
 
 .ab-eyebrow::before {
@@ -176,7 +184,7 @@ button {
   font-size: var(--cdc-btn-font-size);
   font-weight: 500;
   line-height: 1.2;
-  color: #fff;
+  color: var(--cdc-btn-ink);
   background: var(--cdc-btn-bg);
   border: 2px solid var(--cdc-btn-bg);
   border-radius: 50px;
@@ -190,7 +198,7 @@ button {
 .ab-btn:hover {
   background: var(--cdc-btn-bg-hover);
   border-color: var(--cdc-btn-bg-hover);
-  color: #fff;
+  color: var(--cdc-btn-ink);
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(255, 117, 31, 0.28);
 }
@@ -344,10 +352,17 @@ button {
 /* ---------- Hero (dark high-tech, 2-column) ---------- */
 .ab-hero {
   position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(78vh, 860px);
   background: #0b0c10;
   color: #fff;
-  padding-block: 104px 72px;
+  padding-block: 96px 64px;
   overflow: hidden;
+}
+
+.ab-hero > .ab-container {
+  width: 100%;
 }
 
 .ab-hero__grid {
@@ -372,8 +387,15 @@ button {
 }
 
 .ab-brand {
-  color: #FF6B00;
+  color: var(--cdc-orange-display);
   font-weight: inherit;
+}
+
+/* bright brand orange only where the surface is dark enough */
+.ab-section--dark .ab-brand,
+.ab-hero .ab-brand,
+.ab-cta .ab-brand {
+  color: #ff6b00;
 }
 
 .ab-hero__subtitle {
@@ -442,7 +464,7 @@ button {
   border: 0;
   border-radius: 50%;
   background: var(--cdc-orange);
-  color: #fff;
+  color: var(--cdc-btn-ink);
   font-size: 22px;
   cursor: pointer;
   transform: translate(-50%, -50%);
@@ -623,7 +645,7 @@ button {
 }
 
 .ab-spec__value span {
-  color: var(--cdc-orange);
+  color: var(--cdc-orange-display);
 }
 
 .ab-spec__key {
@@ -742,24 +764,38 @@ button {
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
-  gap: 6px;
+  gap: 14px;
 }
 
 .ab-slider__dot {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
+  background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
+  transition: width var(--cdc-transition);
+}
+
+/* visible disc sits on the dot; inset creates a 22×22 px hit area */
+.ab-slider__dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
-  transition: background var(--cdc-transition), width var(--cdc-transition);
+  transition: background var(--cdc-transition);
 }
 
 .ab-slider__dot.is-active {
-  background: #fff;
   width: 22px;
+}
+
+.ab-slider__dot.is-active::before {
+  background: #fff;
 }
 
 .ab-solution__body {
@@ -817,12 +853,12 @@ button {
   padding-block: 8px;
   font-weight: 700;
   font-size: 15px;
-  color: var(--cdc-orange);
+  color: var(--cdc-orange-ink);
   transition: color var(--cdc-transition);
 }
 
 .ab-solution__cta:hover {
-  color: var(--cdc-orange-hover);
+  color: #8f3708;
 }
 
 .ab-solution__cta i {
@@ -879,7 +915,7 @@ button {
 
 .ab-recognition__metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 32px;
 }
@@ -930,7 +966,7 @@ button {
 }
 
 .ab-recognition-award img {
-  max-height: 64px;
+  height: 64px;
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -952,18 +988,27 @@ button {
 .ab-gallery__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 18px;
+  max-width: 1040px;
+  margin-inline: auto;
 }
 
 .ab-gallery__feature {
   position: relative;
+  aspect-ratio: 16 / 9;
   border-radius: var(--cdc-radius-md);
   overflow: hidden;
   box-shadow: var(--cdc-shadow-md);
   background: #000;
-  min-height: 360px;
   display: flex;
   align-items: stretch;
+}
+
+.ab-gallery__caption {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #666;
 }
 
 .ab-gallery__feature video {
@@ -995,6 +1040,7 @@ button {
   align-items: center;
   justify-content: center;
   background: var(--cdc-orange);
+  color: var(--cdc-btn-ink);
   font-size: 24px;
   padding-left: 5px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
@@ -1154,7 +1200,7 @@ button {
   max-width: 300px;
 }
 
-.ab-footer h4 {
+.ab-footer h3 {
   color: #fff;
   font-size: 15px;
   font-weight: 700;
@@ -1228,7 +1274,7 @@ button {
 .ab-footer__social a:hover {
   background: var(--cdc-orange);
   border-color: var(--cdc-orange);
-  color: #fff;
+  color: var(--cdc-btn-ink);
 }
 
 /* ---------- Reveal on scroll ---------- */
@@ -1302,6 +1348,8 @@ button {
 
 @media (max-width: 768px) {
   .ab-hero {
+    display: block;
+    min-height: 0;
     padding-block: 88px 48px;
   }
 
@@ -1516,13 +1564,13 @@ button {
 
 .ab-compare-table__highlight {
   background: rgba(255, 107, 0, 0.08);
-  color: #ff6b00;
+  color: var(--cdc-orange-ink);
   font-weight: 600;
 }
 
 .ab-compare-table thead .ab-compare-table__highlight {
   background: #ff6b00;
-  color: #fff;
+  color: var(--cdc-btn-ink);
 }
 
 .ab-compare-table tbody tr:hover {
@@ -1632,6 +1680,49 @@ body {
   .ab-reveal--left,
   .ab-reveal--right {
     transform: translateY(26px);
+  }
+}
+
+/* ---------- Accessibility: skip link + visible focus ---------- */
+.ab-skip {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 1000;
+  padding: 12px 20px;
+  border-radius: 0 0 10px 10px;
+  background: var(--cdc-orange);
+  color: var(--cdc-btn-ink);
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+
+.ab-skip:focus {
+  top: 0;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--cdc-orange);
+  outline-offset: 3px;
+}
+
+/* ---------- Mobile typography: left-aligned section heads ---------- */
+@media (max-width: 560px) {
+  .ab-section-head--center {
+    text-align: left;
+  }
+
+  .ab-section-head--center .ab-eyebrow {
+    justify-content: flex-start;
+  }
+
+  .ab-section-head--center .ab-lead {
+    text-align: left;
+  }
+
+  .ab-recognition__metrics {
+    grid-template-columns: 1fr;
   }
 }
 

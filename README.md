@@ -73,5 +73,6 @@ node --check assets/js/main.js  # синтаксис JS
 - [x] **Этап 2** — `index.html` свёрстан, CSS/JS подключены (vanilla), сервер на 8085 работает.
 - [x] Контент приведён к канону клиента (60° / 8 м/с / 40 т / 3 км, ISO, Neology, ItalDesign, KSA).
 - [x] Проверки: `check_site.py` — OK; `fact_index.py` — 44/44 утверждения подтверждены.
+- [x] Lighthouse (desktop): Accessibility 100 · Best Practices 100 · SEO 100 · Agentic Browsing 100.
 - [x] Деплой на GitHub Pages — https://petrikin83.github.io/airbridge-landing/ (HTTP 200).
 - [ ] (по запросу) аналитика/счётчики — только по явному согласованию.

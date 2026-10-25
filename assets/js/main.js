@@ -52,18 +52,25 @@
       heroPlay.addEventListener('click', attemptPlay);
     }
 
-    // Browsers may reject autoplay until the first user gesture: retry once.
-    const retryOnGesture = () => {
-      if (heroVideo.paused) attemptPlay();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Respect the OS setting: no autoplay, manual control through the button only.
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+      showPlay();
+    } else {
+      // Browsers may reject autoplay until the first user gesture: retry once.
+      const retryOnGesture = () => {
+        if (heroVideo.paused) attemptPlay();
+        ['pointerdown', 'touchstart', 'scroll'].forEach((eventName) => {
+          window.removeEventListener(eventName, retryOnGesture);
+        });
+      };
       ['pointerdown', 'touchstart', 'scroll'].forEach((eventName) => {
-        window.removeEventListener(eventName, retryOnGesture);
+        window.addEventListener(eventName, retryOnGesture, { passive: true });
       });
-    };
-    ['pointerdown', 'touchstart', 'scroll'].forEach((eventName) => {
-      window.addEventListener(eventName, retryOnGesture, { passive: true });
-    });
 
-    attemptPlay();
+      attemptPlay();
+    }
   }
 
   /* ---------- Mobile burger menu ---------- */
@@ -107,7 +114,7 @@
 
   /* ---------- Trust bar animated counters ---------- */
   const COUNTERS = [
-    { sel: '.ab-stat:nth-child(1) .ab-stat__value', count: 500, render: (n) => '+<span>' + n + '%</span>' },
+    { sel: '.ab-stat:nth-child(1) .ab-stat__value', count: 500, render: (n) => '+' + n + '<span>%</span>' },
     { sel: '.ab-stat:nth-child(2) .ab-stat__value', count: 200, render: (n) => n + '<span>+</span>' },
     { sel: '.ab-stat:nth-child(3) .ab-stat__value', count: 3, render: (n) => 'Top <span>' + n + '</span>' },
     { sel: '.ab-stat:nth-child(4) .ab-stat__value', count: 4000, render: (n) => n.toLocaleString('en-US') + '<span>m+</span>' }
