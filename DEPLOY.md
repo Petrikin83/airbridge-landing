@@ -84,6 +84,8 @@ git push
   `Materials from Galiya/` (в `.gitignore`).
 - Пересобрать оптимизированные ассеты (WebP, WOFF2, сабсет иконок, мобильное видео):
   `python scripts/optimize_assets.py`.
+- Проверить/вычистить лишние файлы: `python scripts/find_unused_assets.py` (с флагом `--delete`).
+- Приёмка мобильной версии: `docs/MOBILE_QA.md`, фактические результаты — `docs/MOBILE_QA_REPORT.md`.
 - Лимит GitHub Pages — 100 МБ на файл; текущие медиа укладываются с большим запасом.
 
 ### Абсолютные ссылки на cdc.company

@@ -1230,6 +1230,9 @@ button {
 .ab-footer__links a {
   color: #bdbdbd;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   transition: color var(--cdc-transition);
 }
 
@@ -1248,6 +1251,13 @@ button {
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  min-height: 24px;
+}
+
+.ab-footer__contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 
 .ab-footer__contact i {
