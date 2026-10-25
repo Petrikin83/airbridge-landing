@@ -205,10 +205,13 @@
 53. **Брендинг и мобильное видео (`c128bd2`).** Возвращено видео в мобильном hero, «AirBridge®»
     выделен оранжевым через `.ab-brand` во всех заголовках.
 
-### [Правки] 2026-08-31 — ISO, инструменты проверки, документация
+### [Правки] 2026-08-31 — ISO-блок
 
 54. **ISO-блок (`2101935`).** В «Proven Engineering & Recognition» возвращён блок
     `ISO 9001 · ISO 14001 · ISO 45001` (+ стили `.ab-iso`).
+
+### [Правки] 2026-10-25 — проверки, документация, чистка, autoplay-fallback
+
 55. **Источник ISO восстановлен.** Добавлен `scripts/extract_pptx_text.py` (текст PPTX →
     `airbridge_materials/texts/`). Извлечены 3 источника: `AirBridge V1`, `AirBridge by CDC - V7`,
     `CDC Corporate Presentation 2026 (1)`. ISO подтверждён дословно: «ISO 9001:2015 Quality
@@ -231,6 +234,20 @@
     `airbridge-material-2/3/4.jpg`, `airbridge-passenger-1/3.jpg`, `cable-airbridge.jpg`,
     `cdc-airbridge-technology.jpeg`, `material-hero-module-mountain.jpg`. Восстанавливаются из
     истории git (до коммита с чисткой).
+60. **Авторизация GitHub и Pages API.** `gh` 2.92.0 уже авторизован: аккаунт **Petrikin83**,
+    токен в системном keyring, scopes `repo`, `workflow`, `gist`, `read:org`. Причина ответа
+    **404 без авторизации**: эндпоинт `/repos/{owner}/{repo}/pages` относится к администрированию
+    репозитория и анонимно не отдаётся (GitHub отвечает 404, а не 401, чтобы не раскрывать
+    настройки репозитория). С токеном: `status: built`, `build_type: legacy`,
+    `source: main /`, `https_enforced: true`; последняя сборка — коммит `0aaa5de`.
+61. **Hero-видео: fallback для заблокированного autoplay.** Симптом «видео не воспроизводится»:
+    файл валиден (H.264 High, yuv420p, 1280×720, 24 fps, faststart, движение по всем 10 с), но
+    браузер блокирует автозапуск (iOS Low Power Mode, экономия трафика, политика autoplay) —
+    элемент в `readyState 4`, при этом `paused: true`, и без кнопки виден только постер.
+    Исправлено: `preload="auto"`, `webkit-playsinline`, `disablepictureinpicture`, кнопка
+    `.ab-hero__play` (появляется только если `play()` отклонён) и повторный запуск по первому
+    `pointerdown`/`touchstart`/`scroll` в `main.js`. Проверено эмуляцией отказа `play()`:
+    кнопка 68×68 показывается, клик запускает видео и скрывает кнопку.
 
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
@@ -272,7 +289,7 @@
 - `lato-S6u*.woff2` (18 файлов) — Lato 100/300/400/700/900 normal+italic (latin/latin-ext).
 - `fa-brands-400`, `fa-regular-400`, `fa-solid-900`, `fa-v4compatibility` (ttf + woff2) — Font Awesome 6.5.2.
 
-### Images (assets/images/) — 36 файлов (~8.5 МБ после чистки 31.08)
+### Images (assets/images/) — 36 файлов (~8.5 МБ после чистки 25.10)
 
 Корень:
 - `cdc-logo-orange-full.png` — логотип шапки и футера.
@@ -376,7 +393,9 @@
       (бенчмарки таблицы сравнения вынесены отдельно).
 - [x] Деплой: **https://petrikin83.github.io/airbridge-landing/** (GitHub Pages, ветка `main`,
       HTTP 200, контент идентичен локальному).
-- [x] Документация актуализирована: `MEMORY.md`, `README.md`, `DEPLOY.md` (31.08.2026).
+- [x] Документация актуализирована: `MEMORY.md`, `README.md`, `DEPLOY.md` (25.10.2026).
+- [x] Hero-видео: fallback-кнопка при блокировке autoplay + повторный запуск по первому жесту.
+- [x] GitHub Pages проверен через авторизованный API (`gh api .../pages`) — статус `built`.
 - [ ] (по запросу) аналитика/счётчики — только по явному согласованию.
 - [ ] (по подтверждению клиента) возможный перевод канона на 90°/10 м/с — см. раздел расхождений.
 

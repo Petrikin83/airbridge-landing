@@ -1,14 +1,24 @@
 # DEPLOY.md — Деплой на GitHub Pages
 
-## Текущее состояние (проверено 31.08.2026)
+## Текущее состояние (проверено 25.10.2026)
 
 | Параметр | Значение |
 |---|---|
 | Репозиторий | `https://github.com/Petrikin83/airbridge-landing` (public, default branch `main`) |
 | Прод | `https://petrikin83.github.io/airbridge-landing/` — HTTP 200 |
-| Источник публикации | ветка `main`, папка `/ (root)` |
-| Синхронизация | прод-HTML идентичен локальному (`index.html`, 714 строк) |
-| Не проверяется по API | `GET /repos/.../pages` без авторизации возвращает 404, поэтому статус сборки подтверждается прямым запросом к прод-URL |
+| Источник публикации | ветка `main`, папка `/ (root)`, `build_type: legacy` |
+| Статус Pages API | `status: built`, `https_enforced: true` |
+| Последняя сборка | коммит `0aaa5de` (25.10.2026) |
+| Анонимный `/pages` | возвращает **404**: эндпоинт администрирования репозитория не отдаётся без токена (GitHub намеренно отвечает 404, а не 401) |
+
+Авторизованная проверка (GitHub CLI уже настроен: аккаунт `Petrikin83`, токен в системном keyring,
+scopes `repo`, `workflow`, `gist`, `read:org`):
+
+```powershell
+gh auth status
+gh api repos/Petrikin83/airbridge-landing/pages --jq '{status, html_url, build_type, source, https_enforced}'
+gh api repos/Petrikin83/airbridge-landing/pages/builds/latest --jq '{status, commit, created_at}'
+```
 
 ## Предпосылки
 - Локальный Git установлен.
