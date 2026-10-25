@@ -296,6 +296,8 @@
     - **Слайдеры:** `role="tablist"` → `role="group"` (ARIA-валидность); точка 10px с областью
       нажатия 22×22px через `::before`, активная — 22px.
     - **Футер:** `h4` → `h3` — исправлен порядок заголовков (h1 → h2 → h3).
+    - **CLS:** у hero-видео зарезервировано соотношение сторон (`aspect-ratio: 16 / 9`) — устранён
+      сдвиг макета при загрузке метаданных; локальный Lighthouse: Agentic Browsing 100.
     - **Lighthouse (desktop, строгий прогон с принудительно видимыми блоками):**
       Accessibility **100**, Best Practices **100**, SEO **100**, Agentic Browsing **100**, 0 ошибок.
     - Проверки: `check_site.py` — OK; `fact_index.py` — 44/44; `node --check` — OK;
