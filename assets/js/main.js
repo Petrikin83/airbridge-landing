@@ -212,7 +212,7 @@
     ]
   };
 
-  document.querySelectorAll('.js-slider').forEach((slider) => {
+  const initSlider = (slider) => {
     const slidesWrap = slider.querySelector('.ab-slider__slides');
     const dotsWrap = slider.querySelector('.ab-slider__dots');
     const key = slider.dataset.solution;
@@ -222,11 +222,20 @@
     const slides = sources.map((src, i) => {
       const img = document.createElement('img');
       img.className = 'ab-slider__slide' + (i === 0 ? ' is-active' : '');
-      img.src = src;
+      img.dataset.src = src;
       img.alt = 'AirBridge® ' + (key === 'cable' ? 'cable crane' : 'ropeway') + ' — slide ' + (i + 1);
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.fetchPriority = 'low';
       slidesWrap.appendChild(img);
       return img;
     });
+
+    // Load slides on demand: two at a time instead of all 14 photos at once.
+    const loadSlide = (i) => {
+      const img = slides[(i + slides.length) % slides.length];
+      if (img && !img.getAttribute('src')) img.src = img.dataset.src;
+    };
 
     const dots = [];
     slides.forEach((_, i) => {
@@ -250,6 +259,8 @@
       slides.forEach((s, j) => s.classList.toggle('is-active', j === index));
       dots.forEach((d, j) => d.classList.toggle('is-active', j === index));
       if (counter) counter.textContent = (index + 1) + ' / ' + slides.length;
+      loadSlide(index);
+      loadSlide(index + 1);
     };
 
     const start = () => { timer = setInterval(() => goTo(index + 1), 4000); };
@@ -272,5 +283,23 @@
 
     goTo(0);
     start();
-  });
+  };
+
+  // Build sliders only when they approach the viewport: without this the first
+  // paint fetched all 25 gallery photos (~6 MB).
+  const sliders = document.querySelectorAll('.js-slider');
+  if ('IntersectionObserver' in window) {
+    const sliderObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          initSlider(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '700px 0px' });
+
+    sliders.forEach((slider) => sliderObserver.observe(slider));
+  } else {
+    sliders.forEach(initSlider);
+  }
 })();

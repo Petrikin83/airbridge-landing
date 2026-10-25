@@ -328,6 +328,25 @@
     - **Проверки:** Lighthouse **mobile** (строгий прогон со всеми видимыми блоками) —
       Accessibility 100 · Best Practices 100 · SEO 100 · Agentic 100; overflow 0 на 360 / 390 /
       768; `check_site.py` — OK; CSS-скобки 299/299.
+65. **Оптимизация производительности под мобильный бюджет (25.10.2026).**
+    - **Замеры (390px, без кэша):** первичная загрузка **4068 KB → 860 KB**, запросов 27 → **16**.
+    - **Font Awesome** (2 CSS = 128 KB + шрифт 153 KB) заменён на `assets/css/icons.css`
+      (сабсет из 19 используемых глифов) + `fa-solid-subset.woff2` — **3 KB**. Остальные FA-файлы
+      остались в `assets/` как справочные, но не загружаются.
+    - **`airbridge-module-clean.png`** 1331 KB → **WebP 72 KB** (`<picture>` + PNG-fallback),
+      добавлены `loading="lazy" decoding="async"`.
+    - **`Goodly-Regular.otf`** 292 KB → **WOFF2 64 KB** (в `fonts.css` woff2 первым, preload в head).
+    - **Hero-видео:** для ≤768px отдельный `hero-pendulum-mobile.mp4` **412 KB** через
+      `<source media="(max-width: 768px)">` (полный файл 1983 KB — только на десктопе).
+    - **Слайдеры:** инициализация по `IntersectionObserver` (rootMargin 700px) + подгрузка по
+      **2 кадра на слайдер** вместо 25 фото (6.08 MB) сразу; остальные — по мере показа.
+    - **LCP:** постер hero вынесен в `preload` с `fetchpriority="high"`. Trace: LCP 375 → **336 ms**,
+      render delay 328 → **293 ms**, CLS **0.00**.
+    - **`scripts/optimize_assets.py`** — воспроизводимая генерация WebP, WOFF2, сабсета FA и
+      мобильного видео (запуск: `python scripts/optimize_assets.py`).
+    - **Чек-лист приёмки:** добавлен `docs/MOBILE_QA.md` (WCAG 2.2 / web.dev / Front-End-Checklist,
+      матрица устройств, бюджет производительности, чек-лист регрессии).
+    - Lighthouse mobile после оптимизаций: **100 / 100 / 100 / 100**.
 
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 

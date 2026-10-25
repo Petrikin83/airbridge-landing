@@ -71,13 +71,20 @@ git push
 ## Важные замечания
 
 ### Крупные медиафайлы
-- `assets/videos/airbridge-motion-01.mp4` — 6.2 МБ, `assets/media/` — до 3.0 МБ на файл,
-  изображения `assets/images/` — 8.5 МБ суммарно. Лимит GitHub Pages — 100 МБ на файл.
+- **Hero-видео:** десктоп `assets/media/hero-pendulum.mp4` (~1.9 МБ), мобильный вариант
+  `hero-pendulum-mobile.mp4` (~0.4 МБ) подключается через `<source media="(max-width: 768px)">`.
+- **Рендер модуля:** `airbridge-module-clean.webp` (72 КБ) через `<picture>` с PNG-fallback.
+- **Фото решений:** 25 кадров (~6 МБ) в `assets/images/solutions/` — грузятся лениво
+  (2 кадра на слайдер, остальные по мере показа).
+- **Шрифты:** Goodly `woff2` (64 КБ, preload), Lato `woff2`, сабсет иконок
+  `fa-solid-subset.woff2` (3 КБ) + `assets/css/icons.css`.
+- **Первичная загрузка** на 390px без кэша — ~860 КБ (Lighthouse mobile: 100/100/100/100).
 - Презентации клиента (PDF ~4.8 МБ, PPTX до ~20 МБ) в репозитории **не хранятся**: в
   `airbridge_materials/texts/` лежат только текстовые выжимки, сами файлы — в локальной папке
   `Materials from Galiya/` (в `.gitignore`).
-- Для ускорения загрузки видео сжато и имеет `poster`, фото решений оптимизированы.
-- При необходимости тяжёлые видео можно вынести на отдельный CDN/хостинг и сослаться на них.
+- Пересобрать оптимизированные ассеты (WebP, WOFF2, сабсет иконок, мобильное видео):
+  `python scripts/optimize_assets.py`.
+- Лимит GitHub Pages — 100 МБ на файл; текущие медиа укладываются с большим запасом.
 
 ### Абсолютные ссылки на cdc.company
 - Все переходы на головной сайт — абсолютные: `https://cdc.company/...` (см. `TECH_SPEC.md`).

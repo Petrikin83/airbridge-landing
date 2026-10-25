@@ -46,11 +46,15 @@
   }
   </script>
 
+  <!-- Critical assets: LCP poster + the two fonts used above the fold -->
+  <link rel="preload" as="image" href="assets/images/hero-poster.jpg" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/lato-S6uyw4BMUTPHjx4wXg.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Goodly-Regular.woff2" crossorigin />
+
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/cdc-tokens.css" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
-  <link rel="stylesheet" href="assets/css/font-awesome-all.min.css" />
-  <link rel="stylesheet" href="assets/css/font-awesome-v4-shims.min.css" />
+  <link rel="stylesheet" href="assets/css/icons.css" />
   <link rel="stylesheet" href="assets/css/landing.css" />
 </head>
 <body>
@@ -98,6 +102,7 @@
         </div>
         <div class="ab-hero__visual">
           <video class="ab-hero__video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/images/hero-poster.jpg" disablepictureinpicture>
+            <source src="assets/media/hero-pendulum-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
             <source src="assets/media/hero-pendulum.mp4" type="video/mp4" />
           </video>
           <button class="ab-hero__play js-hero-play" type="button" aria-label="Play background video" hidden>
@@ -163,7 +168,10 @@
         <div class="ab-tech__split">
           <div class="ab-tech__media-group ab-reveal ab-reveal--left">
             <div class="ab-tech__media">
-              <img src="assets/images/airbridge-module-clean.png" alt="AirBridge® self-propelled ropeway technology" loading="lazy" />
+              <picture>
+                <source srcset="assets/images/airbridge-module-clean.webp" type="image/webp" />
+                <img src="assets/images/airbridge-module-clean.png" alt="AirBridge® self-propelled ropeway technology" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <p class="ab-tech__badge">Patented · WO2017064014 · 52 patented innovations</p>
             <p class="ab-tech__caption">

@@ -40,7 +40,8 @@ node --check assets/js/main.js  # синтаксис JS
 | `assets/media/` | Видео hero и демо-ролик клиента |
 | `assets/videos/` | Ролик секции Showcase |
 | `airbridge_materials/texts/` | Текстовые выжимки клиентских PDF/PPTX и сайта CDC (источники факт-чека) |
-| `scripts/` | Извлечение материалов, обработка фото/видео и проверки (`check_site.py`, `fact_index.py`) |
+| `scripts/` | Извлечение материалов, обработка фото/видео и проверки (`check_site.py`, `fact_index.py`, `optimize_assets.py`) |
+| `docs/MOBILE_QA.md` | Чек-лист приёмки мобильной версии (WCAG 2.2, web.dev, Front-End-Checklist) |
 | `PROJECT_RULES.md` | Стандарты и барьер безопасности |
 | `MEMORY.md` | Оперативный лог, карта активов, канон фактов |
 | `TECH_SPEC.md` | Детальное ТЗ воронки |
@@ -76,5 +77,7 @@ node --check assets/js/main.js  # синтаксис JS
 - [x] Lighthouse (desktop): Accessibility 100 · Best Practices 100 · SEO 100 · Agentic Browsing 100.
 - [x] Мобильный редизайн: таблица-карточки без свайпа, компактный футер (676px), свайп-слайдеры
       со счётчиком; Lighthouse mobile — 100 / 100 / 100 / 100.
+- [x] Производительность: первичная загрузка 4068 KB → 860 KB (WebP, WOFF2, сабсет иконок,
+      мобильное видео, ленивые слайдеры). Приёмка — по `docs/MOBILE_QA.md`.
 - [x] Деплой на GitHub Pages — https://petrikin83.github.io/airbridge-landing/ (HTTP 200).
 - [ ] (по запросу) аналитика/счётчики — только по явному согласованию.

@@ -95,5 +95,6 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/Goodly-Regular.otf') format('opentype');
+  src: url('../fonts/Goodly-Regular.woff2') format('woff2'),
+    url('../fonts/Goodly-Regular.otf') format('opentype');
 }
