@@ -1430,13 +1430,13 @@ button {
 /* ---------- New content blocks (final content update) ---------- */
 .ab-features__note {
   font-size: 13px;
-  color: #8a8a8a;
+  color: #666;
   margin-top: 18px;
 }
 
 .ab-tech__design-note {
   font-size: 13px;
-  color: #8a8a8a;
+  color: #666;
   margin-top: 18px;
   line-height: 1.5;
 }
