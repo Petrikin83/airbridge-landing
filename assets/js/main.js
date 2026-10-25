@@ -29,42 +29,41 @@
   const heroPlay = document.querySelector('.js-hero-play');
 
   if (heroVideo) {
-    const hidePlay = () => { if (heroPlay) heroPlay.hidden = true; };
     const showPlay = () => { if (heroPlay) heroPlay.hidden = false; };
+    const hidePlay = () => { if (heroPlay) heroPlay.hidden = true; };
 
-    const requestPlay = () => {
+    const attemptPlay = () => {
       const attempt = heroVideo.play();
-      if (attempt && typeof attempt.catch === 'function') {
+      if (attempt && typeof attempt.then === 'function') {
         attempt.then(hidePlay).catch(showPlay);
       }
     };
 
+    const syncPlayButton = () => {
+      if (heroVideo.paused && heroVideo.readyState >= 2) showPlay();
+    };
+
     heroVideo.addEventListener('playing', hidePlay);
+    heroVideo.addEventListener('pause', () => { if (heroVideo.currentTime > 0) showPlay(); });
+    heroVideo.addEventListener('loadeddata', () => setTimeout(syncPlayButton, 400), { once: true });
+    window.addEventListener('load', () => setTimeout(syncPlayButton, 400), { once: true });
 
     if (heroPlay) {
-      heroPlay.addEventListener('click', () => {
-        requestPlay();
-        hidePlay();
-      });
+      heroPlay.addEventListener('click', attemptPlay);
     }
 
     // Browsers may reject autoplay until the first user gesture: retry once.
-    const retryAfterGesture = () => {
-      if (heroVideo.paused) requestPlay();
-      window.removeEventListener('pointerdown', retryAfterGesture);
-      window.removeEventListener('touchstart', retryAfterGesture);
-      window.removeEventListener('scroll', retryAfterGesture);
-    };
-
-    const initial = heroVideo.play();
-    if (initial && typeof initial.catch === 'function') {
-      initial.catch(() => {
-        showPlay();
-        window.addEventListener('pointerdown', retryAfterGesture, { once: true, passive: true });
-        window.addEventListener('touchstart', retryAfterGesture, { once: true, passive: true });
-        window.addEventListener('scroll', retryAfterGesture, { once: true, passive: true });
+    const retryOnGesture = () => {
+      if (heroVideo.paused) attemptPlay();
+      ['pointerdown', 'touchstart', 'scroll'].forEach((eventName) => {
+        window.removeEventListener(eventName, retryOnGesture);
       });
-    }
+    };
+    ['pointerdown', 'touchstart', 'scroll'].forEach((eventName) => {
+      window.addEventListener(eventName, retryOnGesture, { passive: true });
+    });
+
+    attemptPlay();
   }
 
   /* ---------- Mobile burger menu ---------- */

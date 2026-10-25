@@ -8,7 +8,7 @@
 | Прод | `https://petrikin83.github.io/airbridge-landing/` — HTTP 200 |
 | Источник публикации | ветка `main`, папка `/ (root)`, `build_type: legacy` |
 | Статус Pages API | `status: built`, `https_enforced: true` |
-| Последняя сборка | коммит `0aaa5de` (25.10.2026) |
+| Последняя сборка | определяется командой `gh api .../pages/builds/latest` (на 25.10.2026 — `cec6d19`) |
 | Анонимный `/pages` | возвращает **404**: эндпоинт администрирования репозитория не отдаётся без токена (GitHub намеренно отвечает 404, а не 401) |
 
 Авторизованная проверка (GitHub CLI уже настроен: аккаунт `Petrikin83`, токен в системном keyring,
