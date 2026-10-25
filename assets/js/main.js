@@ -24,6 +24,49 @@
     toggleIndicator();
   }
 
+  /* ---------- Hero video: autoplay guard + manual fallback ---------- */
+  const heroVideo = document.querySelector('.ab-hero__video');
+  const heroPlay = document.querySelector('.js-hero-play');
+
+  if (heroVideo) {
+    const hidePlay = () => { if (heroPlay) heroPlay.hidden = true; };
+    const showPlay = () => { if (heroPlay) heroPlay.hidden = false; };
+
+    const requestPlay = () => {
+      const attempt = heroVideo.play();
+      if (attempt && typeof attempt.catch === 'function') {
+        attempt.then(hidePlay).catch(showPlay);
+      }
+    };
+
+    heroVideo.addEventListener('playing', hidePlay);
+
+    if (heroPlay) {
+      heroPlay.addEventListener('click', () => {
+        requestPlay();
+        hidePlay();
+      });
+    }
+
+    // Browsers may reject autoplay until the first user gesture: retry once.
+    const retryAfterGesture = () => {
+      if (heroVideo.paused) requestPlay();
+      window.removeEventListener('pointerdown', retryAfterGesture);
+      window.removeEventListener('touchstart', retryAfterGesture);
+      window.removeEventListener('scroll', retryAfterGesture);
+    };
+
+    const initial = heroVideo.play();
+    if (initial && typeof initial.catch === 'function') {
+      initial.catch(() => {
+        showPlay();
+        window.addEventListener('pointerdown', retryAfterGesture, { once: true, passive: true });
+        window.addEventListener('touchstart', retryAfterGesture, { once: true, passive: true });
+        window.addEventListener('scroll', retryAfterGesture, { once: true, passive: true });
+      });
+    }
+  }
+
   /* ---------- Mobile burger menu ---------- */
   const burger = document.querySelector('.ab-header__burger');
   const nav = document.querySelector('.ab-nav');

@@ -94,9 +94,12 @@
           </ul>
         </div>
         <div class="ab-hero__visual">
-          <video class="ab-hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg">
+          <video class="ab-hero__video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/images/hero-poster.jpg" disablepictureinpicture>
             <source src="assets/media/hero-pendulum.mp4" type="video/mp4" />
           </video>
+          <button class="ab-hero__play js-hero-play" type="button" aria-label="Play background video" hidden>
+            <i class="fa-solid fa-play" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
       <a class="ab-hero__scroll" href="#trust" aria-label="Scroll to explore">
