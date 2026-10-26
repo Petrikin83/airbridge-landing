@@ -369,6 +369,29 @@
     - `font-display: block → swap` у сабсета иконок (инсайт FontDisplay).
     - На ≤768px отключён `backdrop-filter` у шапки (дорог на мобильных GPU), фон непрозрачный.
     - Повторный трейс: инсайтов **ForcedReflow** и **FontDisplay** больше нет.
+68. **Рефакторинг скриптов по архитектурному графу (25.10.2026).**
+    - **До:** в `graphify-out/GRAPH_REPORT.md` god nodes — `kb()`, пять разных `main()`,
+      `load_sources()` как мост между сообществами; в скриптах дублировались `ROOT`, UTF-8-обвязка,
+      чтение/запись файлов; `extract_pdf_text.py` и `extract_html_text.py` содержали пути `D:\...`.
+    - **Общий слой:** добавлен `scripts/_lib.py` — `ROOT`, `path()`, `rel()`, `enable_utf8()`,
+      `read_text()`, `write_text()`, `file_kb()`, `iter_files()`.
+    - **Активные скрипты** переведены на `_lib` и единый контракт `main() -> int` (коды 0/1/2,
+      `sys.exit(main())`): `check_site.py` разбит на `check_references/check_anchors/check_markup`,
+      `fact_index.py` — на `load_sources/hits_for/report_claims/report_benchmarks`.
+    - **Пути:** `extract_pdf_text.py` ищет PDF в `airbridge_materials/presentations/`, затем в
+      `Materials from Galiya/`; `extract_html_text.py` берёт каталог из `CDC_SITE`
+      (по умолчанию `D:\Clone_CDC\site`, только чтение).
+    - **Оркестратор:** `scripts/run_checks.py` — сайт + факт-чек + лишние ассеты одной командой.
+    - **Документация:** `scripts/README.md` — карта скриптов, статусы active/archive, конвенции,
+      типовые сценарии, соответствие сообществ графа файлам.
+    - **Детерминизм:** `optimize_assets.py` собирает WOFF2 с `recalcTimestamp=False` — повторный
+      прогон даёт тот же SHA-256.
+    - **Проверка эквивалентности:** `extract_pptx_text.py` + `extract_pdf_text.py` пересобрали 5
+      текстов **без diff** в git; `run_checks.py` — **ALL CHECKS PASSED** (site OK, 45/45,
+      0 лишних файлов).
+    - **Граф после:** **236 узлов / 383 связи / 16 сообществ**; god nodes — `enable_utf8()` (19),
+      `rel()` (13), `read_text()` (12), `write_text()` (10), `path()` (8); в топе один `main()`
+      вместо пяти. Каталог `graphify-out/` добавлен в `.gitignore` (артефакт генерации).
 
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 

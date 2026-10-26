@@ -2,24 +2,33 @@
 
 - airbridge-module-clean.png -> WebP (max width 1100, q82) for the technology block
 - Goodly-Regular.otf -> WOFF2 (292 KB -> ~50 KB)
-- hero-pendulum.mp4 -> 720p mobile variant (2.0 MB -> ~0.6 MB)
+- hero-pendulum.mp4 -> 720p mobile variant (2.0 MB -> ~0.4 MB)
+- Font Awesome solid -> subset with the 19 glyphs used by assets/css/icons.css
 
 Run: python scripts/optimize_assets.py
 """
 import os
 import subprocess
+import sys
 
-from PIL import Image
-from fontTools.ttLib import TTFont
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IMAGES = os.path.join(ROOT, "assets", "images")
-FONTS = os.path.join(ROOT, "assets", "fonts")
-MEDIA = os.path.join(ROOT, "assets", "media")
+from _lib import enable_utf8, file_kb, path  # noqa: E402
+
+try:
+    from PIL import Image
+    from fontTools.ttLib import TTFont
+except ImportError as exc:  # pragma: no cover - environment guard
+    print("Missing dependency '%s'. Install: pip install pillow fonttools brotli" % exc.name)
+    raise SystemExit(2)
+
+IMAGES = path("assets", "images")
+FONTS = path("assets", "fonts")
+MEDIA = path("assets", "media")
 
 
-def kb(path):
-    return round(os.path.getsize(path) / 1024)
+def report(label, src, dst):
+    print("%s: %d KB -> %d KB" % (label, file_kb(src), file_kb(dst)))
 
 
 def module_webp():
@@ -30,16 +39,16 @@ def module_webp():
         height = round(image.height * 1100 / image.width)
         image = image.resize((1100, height), Image.LANCZOS)
     image.save(dst, "WEBP", quality=82, method=6)
-    print("module webp: %d KB -> %d KB" % (kb(src), kb(dst)))
+    report("module webp", src, dst)
 
 
 def goodly_woff2():
     src = os.path.join(FONTS, "Goodly-Regular.otf")
     dst = os.path.join(FONTS, "Goodly-Regular.woff2")
-    font = TTFont(src)
+    font = TTFont(src, recalcTimestamp=False)  # deterministic output
     font.flavor = "woff2"
     font.save(dst)
-    print("goodly woff2: %d KB -> %d KB" % (kb(src), kb(dst)))
+    report("goodly woff2", src, dst)
 
 
 def hero_mobile():
@@ -55,7 +64,7 @@ def hero_mobile():
         ],
         check=True,
     )
-    print("hero mobile mp4: %d KB -> %d KB" % (kb(src), kb(dst)))
+    report("hero mobile mp4", src, dst)
 
 
 def fa_subset():
@@ -75,11 +84,18 @@ def fa_subset():
     subsetter.subset(font)
     font.flavor = "woff2"
     font.save(dst)
-    print("fa subset: %d KB -> %d KB" % (kb(src), kb(dst)))
+    report("fa subset", src, dst)
+
+
+STEPS = (module_webp, goodly_woff2, hero_mobile, fa_subset)
+
+
+def main():
+    enable_utf8()
+    for step in STEPS:
+        step()
+    return 0
 
 
 if __name__ == "__main__":
-    module_webp()
-    goodly_woff2()
-    hero_mobile()
-    fa_subset()
+    sys.exit(main())

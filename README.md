@@ -40,7 +40,7 @@ node --check assets/js/main.js  # синтаксис JS
 | `assets/media/` | Видео hero и демо-ролик клиента |
 | `assets/videos/` | Ролик секции Showcase |
 | `airbridge_materials/texts/` | Текстовые выжимки клиентских PDF/PPTX и сайта CDC (источники факт-чека) |
-| `scripts/` | Извлечение материалов, обработка фото/видео и проверки (`check_site.py`, `fact_index.py`, `optimize_assets.py`, `find_unused_assets.py`) |
+| `scripts/` | Извлечение материалов, обработка фото/видео и проверки (`run_checks.py` — всё разом, `_lib.py` — общий слой, карта в `scripts/README.md`) |
 | `docs/MOBILE_QA.md` | Чек-лист приёмки мобильной версии (WCAG 2.2, web.dev, Front-End-Checklist) |
 | `docs/MOBILE_QA_REPORT.md` | Фактический прогон чек-листа: метрики, Lighthouse, INP, бюджеты |
 | `PROJECT_RULES.md` | Стандарты и барьер безопасности |

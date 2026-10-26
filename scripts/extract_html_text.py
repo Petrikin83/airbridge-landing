@@ -1,11 +1,23 @@
-"""Extract visible text from key CDC HTML pages into airbridge_materials/texts/."""
+"""Extract visible text from key CDC HTML pages into airbridge_materials/texts/.
+
+The CDC reference site is READ-ONLY. Override its location with the CDC_SITE
+environment variable (default: D:\\Clone_CDC\\site).
+
+Run: python scripts/extract_html_text.py
+Exit code: 0 on success, 2 when the CDC site folder is missing.
+"""
 import os
 import re
+import sys
 
-from bs4 import BeautifulSoup
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-BASE = r"D:\Clone_CDC\site"
-OUT = r"D:\Airbridge_NEW_DeepSeek\airbridge_materials\texts"
+from _lib import enable_utf8, path, read_text, rel, write_text  # noqa: E402
+
+from bs4 import BeautifulSoup  # noqa: E402
+
+BASE = os.environ.get("CDC_SITE", r"D:\Clone_CDC\site")
+OUT = path("airbridge_materials", "texts")
 
 PAGES = {
     "innovation": "innovation/index.html",
@@ -21,30 +33,32 @@ def visible_text(html: str) -> str:
     for tag in soup(["script", "style", "noscript", "link", "meta", "svg"]):
         tag.decompose()
     text = soup.get_text("\n")
-    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    # collapse repeated blank lines and remove lone punctuation lines
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
     out = []
-    for ln in lines:
-        if re.fullmatch(r"[^A-Za-z0-9]{1,3}", ln):
+    for line in lines:
+        if re.fullmatch(r"[^A-Za-z0-9]{1,3}", line):
             continue
-        out.append(ln)
+        out.append(line)
     return "\n".join(out)
 
 
 def main():
-    for name, rel in PAGES.items():
-        path = os.path.join(BASE, rel)
-        if not os.path.exists(path):
-            print(f"MISSING {path}")
+    enable_utf8()
+    if not os.path.isdir(BASE):
+        print("CDC site folder not found: " + BASE)
+        return 2
+
+    for name, page in PAGES.items():
+        source = os.path.join(BASE, page)
+        if not os.path.exists(source):
+            print("MISSING " + source)
             continue
-        with open(path, "r", encoding="utf-8") as fh:
-            html = fh.read()
-        text = visible_text(html)
-        out_path = os.path.join(OUT, f"cdc-{name}.txt")
-        with open(out_path, "w", encoding="utf-8") as fh:
-            fh.write(text)
-        print(f"WROTE {out_path} ({len(text)} chars)")
+        text = visible_text(read_text(source))
+        out_path = os.path.join(OUT, "cdc-%s.txt" % name)
+        write_text(out_path, text)
+        print("WROTE %s (%d chars)" % (rel(out_path), len(text)))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

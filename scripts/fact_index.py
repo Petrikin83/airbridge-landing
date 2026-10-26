@@ -11,8 +11,11 @@ import os
 import re
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MATERIALS = os.path.join(ROOT, "airbridge_materials", "texts")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from _lib import ROOT, enable_utf8, path, read_text  # noqa: E402
+
+MATERIALS = path("airbridge_materials", "texts")
 
 # claim -> regex as it appears in the client source materials
 CLAIMS = {
@@ -72,46 +75,59 @@ BENCHMARKS = {
 def load_sources():
     """Return [(file name, text)] for every client material text file."""
     if not os.path.isdir(MATERIALS):
-        sys.exit("Materials folder not found: " + MATERIALS)
+        raise FileNotFoundError("Materials folder not found: " + MATERIALS)
     names = sorted(n for n in os.listdir(MATERIALS) if n.lower().endswith((".txt", ".md")))
     if not names:
-        sys.exit("No source texts found in " + MATERIALS)
-    sources = []
-    for name in names:
-        with open(os.path.join(MATERIALS, name), encoding="utf-8", errors="ignore") as fh:
-            sources.append((name, fh.read()))
-    return sources
+        raise FileNotFoundError("No source texts found in " + MATERIALS)
+    return [(name, read_text(os.path.join(MATERIALS, name))) for name in names]
 
 
-def main():
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+def hits_for(sources, pattern):
+    """Files whose text matches the claim regex."""
+    rx = re.compile(pattern)
+    return [name for name, text in sources if rx.search(text)]
 
-    sources = load_sources()
-    print("=== FACT INDEX (client materials only) ===")
-    print("sources: " + ", ".join(name for name, _ in sources))
 
+def report_claims(sources):
+    """Print every claim with its sources; return the list of unconfirmed ones."""
     missing = []
     for claim, pattern in CLAIMS.items():
-        rx = re.compile(pattern)
-        hits = [name for name, text in sources if rx.search(text)]
+        hits = hits_for(sources, pattern)
         if hits:
             print("\n[" + claim + "]\n  -> " + ", ".join(hits))
         else:
             missing.append(claim)
             print("\n[" + claim + "]\n  -> *** NOT FOUND ***")
+    return missing
 
+
+def report_benchmarks(sources):
+    """Print the industry reference values separately from client claims."""
+    print("\n=== INDUSTRY BENCHMARKS (comparison table, not client claims) ===")
+    for label, pattern in BENCHMARKS.items():
+        hits = hits_for(sources, pattern)
+        print("[%s] -> %s"
+              % (label, ", ".join(hits) if hits else "not in client materials (industry reference)"))
+
+
+def main():
+    enable_utf8()
+    try:
+        sources = load_sources()
+    except FileNotFoundError as exc:
+        print(exc)
+        return 2
+
+    print("=== FACT INDEX (client materials only) ===")
+    print("sources: " + ", ".join(name for name, _ in sources))
+
+    missing = report_claims(sources)
     total = len(CLAIMS)
     print("\n=== SUMMARY: %d/%d claims confirmed ===" % (total - len(missing), total))
     if missing:
         print("unconfirmed: " + "; ".join(missing))
 
-    print("\n=== INDUSTRY BENCHMARKS (comparison table, not client claims) ===")
-    for label, pattern in BENCHMARKS.items():
-        rx = re.compile(pattern)
-        hits = [name for name, text in sources if rx.search(text)]
-        print("[%s] -> %s" % (label, ", ".join(hits) if hits else "not in client materials (industry reference)"))
-
+    report_benchmarks(sources)
     return 1 if missing else 0
 
 

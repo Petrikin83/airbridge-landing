@@ -11,7 +11,10 @@ import os
 import re
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from _lib import ROOT, enable_utf8, read_text, rel  # noqa: E402
+
 PAGE = os.path.join(ROOT, "index.html")
 
 REF_RE = re.compile(r'(?:src|href)="([^"]+)"')
@@ -36,25 +39,27 @@ def local_refs(html):
             yield path
 
 
-def main():
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-
-    with open(PAGE, encoding="utf-8") as fh:
-        html = fh.read()
-
-    problems = []
-
+def check_references(html):
+    """Return (sorted local refs, missing-asset problems)."""
     refs = sorted(local_refs(html))
+    problems = []
     for ref in refs:
         if not os.path.exists(os.path.join(ROOT, ref.replace("/", os.sep))):
             problems.append("missing asset: " + ref)
+    return refs, problems
 
+
+def check_anchors(html):
+    """Return (sorted in-page anchors, broken-anchor problems)."""
     ids = set(ID_RE.findall(html))
     anchors = sorted(set(ANCHOR_RE.findall(html)))
-    for anchor in anchors:
-        if anchor not in ids:
-            problems.append("broken anchor: #" + anchor)
+    problems = ["broken anchor: #" + anchor for anchor in anchors if anchor not in ids]
+    return anchors, problems
+
+
+def check_markup(html):
+    """Return (videos, problems) for the basic markup invariants."""
+    problems = []
 
     h1_count = len(H1_RE.findall(html))
     if h1_count != 1:
@@ -69,7 +74,19 @@ def main():
         if "<source" not in video:
             problems.append("video without <source>: " + video[:80])
 
-    print("=== SITE CHECK: %s ===" % os.path.relpath(PAGE, ROOT).replace(os.sep, "/"))
+    return videos, problems
+
+
+def main():
+    enable_utf8()
+    html = read_text(PAGE)
+
+    refs, reference_problems = check_references(html)
+    anchors, anchor_problems = check_anchors(html)
+    videos, markup_problems = check_markup(html)
+    problems = reference_problems + anchor_problems + markup_problems
+
+    print("=== SITE CHECK: %s ===" % rel(PAGE))
     print("local references: %d | in-page anchors: %d | videos: %d"
           % (len(refs), len(anchors), len(videos)))
 
