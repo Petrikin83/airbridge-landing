@@ -7,7 +7,7 @@
   font-family: 'Font Awesome 6 Free';
   font-style: normal;
   font-weight: 900;
-  font-display: block;
+  font-display: swap;
   src: url('../fonts/fa-solid-subset.woff2') format('woff2');
 }
 

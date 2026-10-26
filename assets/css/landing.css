@@ -1820,6 +1820,17 @@ button:focus-visible {
 
 /* ---------- Mobile layout pass: tighter rhythm, compact footer ---------- */
 @media (max-width: 768px) {
+  /* backdrop-filter is expensive on mobile GPUs: use an opaque header instead */
+  .ab-header {
+    background: #f3f4f5;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .ab-header.is-scrolled {
+    background: #ffffff;
+  }
+
   /* slider: swipe + counter reads better than 14 dots on a 360px screen */
   .ab-slider__dots {
     display: none;

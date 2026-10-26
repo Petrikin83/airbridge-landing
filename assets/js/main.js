@@ -7,18 +7,36 @@
 
   /* ---------- Header scroll state ---------- */
   const header = document.querySelector('.ab-header');
-  const onScroll = () => {
+  let headerScrolled = null;
+  let scrollTicking = false;
+
+  const applyScrollState = () => {
+    scrollTicking = false;
     if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 10);
+    const scrolled = window.scrollY > 10;
+    if (scrolled === headerScrolled) return;
+    headerScrolled = scrolled;
+    header.classList.toggle('is-scrolled', scrolled);
   };
+
+  const onScroll = () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(applyScrollState);
+  };
+
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  applyScrollState();
 
   /* ---------- Hero scroll indicator (fade on scroll) ---------- */
   const scrollIndicator = document.querySelector('.ab-hero__scroll');
   if (scrollIndicator) {
+    let indicatorHidden = null;
     const toggleIndicator = () => {
-      scrollIndicator.classList.toggle('is-hidden', window.scrollY > 40);
+      const hidden = window.scrollY > 40;
+      if (hidden === indicatorHidden) return;
+      indicatorHidden = hidden;
+      scrollIndicator.classList.toggle('is-hidden', hidden);
     };
     window.addEventListener('scroll', toggleIndicator, { passive: true });
     toggleIndicator();
