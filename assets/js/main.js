@@ -94,21 +94,50 @@
   /* ---------- Mobile burger menu ---------- */
   const burger = document.querySelector('.ab-header__burger');
   const nav = document.querySelector('.ab-nav');
+  const mobileNav = window.matchMedia('(max-width: 768px)');
 
   if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const open = nav.classList.toggle('is-open');
+    const setMenu = (open, returnFocus = false) => {
+      nav.classList.toggle('is-open', open);
       burger.classList.toggle('is-open', open);
       burger.setAttribute('aria-expanded', String(open));
+
+      // A closed off-canvas panel must leave the tab order entirely.
+      nav.inert = mobileNav.matches ? !open : false;
+
+      if (open) {
+        const firstLink = nav.querySelector('a');
+        if (firstLink) firstLink.focus({ preventScroll: true });
+      } else if (returnFocus) {
+        burger.focus({ preventScroll: true });
+      }
+    };
+
+    const syncMenu = () => setMenu(nav.classList.contains('is-open') && mobileNav.matches);
+
+    burger.addEventListener('click', () => {
+      setMenu(!nav.classList.contains('is-open'));
     });
 
     nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
-        burger.classList.remove('is-open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', () => setMenu(false));
     });
+
+    // Rule 1 — Escape dismisses instantly and returns focus to the trigger.
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        setMenu(false, true);
+      }
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!nav.classList.contains('is-open')) return;
+      if (nav.contains(event.target) || burger.contains(event.target)) return;
+      setMenu(false);
+    });
+
+    mobileNav.addEventListener('change', syncMenu);
+    syncMenu();
   }
 
   /* ---------- Reveal on scroll ---------- */
@@ -270,7 +299,7 @@
     let timer = null;
 
     const counter = slider.querySelector('.js-slider-counter');
-    let touchX = null;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const goTo = (i) => {
       index = (i + slides.length) % slides.length;
@@ -281,23 +310,207 @@
       loadSlide(index + 1);
     };
 
-    const start = () => { timer = setInterval(() => goTo(index + 1), 4000); };
-    const restart = () => { clearInterval(timer); start(); };
+    // Rule 2 / 6 — autoplay is a fixed-duration loop: it pauses on interaction
+    // and disappears entirely under reduced motion.
+    const start = () => {
+      if (reduceMotion) return;
+      timer = window.setInterval(() => goTo(index + 1), 4000);
+    };
+    const restart = () => { window.clearInterval(timer); start(); };
 
-    // Swipe navigation (mobile): the dot row is replaced by a counter below 720px.
-    slider.addEventListener('touchstart', (event) => {
-      touchX = event.changedTouches[0].clientX;
-    }, { passive: true });
+    /* ---------- Rule 1 & 3: pointer drag, 1:1 tracking, rubber-banded edges ---------- */
+    const at = (i) => slides[(i + slides.length) % slides.length];
+    const stageWidth = () => slider.clientWidth || 1;
 
-    slider.addEventListener('touchend', (event) => {
-      if (touchX === null) return;
-      const delta = event.changedTouches[0].clientX - touchX;
-      if (Math.abs(delta) > 40) {
-        goTo(index + (delta < 0 ? 1 : -1));
-        restart();
+    // Progressive resistance: past the comfortable limit the surface follows the
+    // finger less and less, so the edge never reads as a hard stop.
+    const rubberband = (offset) => {
+      const dimension = stageWidth();
+      const limit = dimension * 0.6;
+      const overshoot = Math.abs(offset) - limit;
+      if (overshoot <= 0) return offset;
+      const damped = limit + (overshoot * dimension * 0.55) / (dimension + 0.55 * overshoot);
+      return Math.sign(offset) * damped;
+    };
+
+    let drag = null;
+    let peek = null;
+    let peekDir = 0;
+
+    const dropPeek = () => {
+      if (peek) {
+        if (peek !== at(index)) peek.classList.remove('is-active');
+        peek.style.transform = '';
+        peek.classList.remove('is-dragging');
+        peek = null;
       }
-      touchX = null;
-    }, { passive: true });
+      peekDir = 0;
+    };
+
+    const clearSlideStyles = () => {
+      slides.forEach((slide) => {
+        slide.style.transform = '';
+        slide.classList.remove('is-dragging');
+      });
+      dropPeek();
+    };
+
+    // Commit: the incoming slide lands where the finger threw it.
+    const settleTo = (dir) => {
+      const incoming = at(index + dir);
+      const outgoing = at(index);
+
+      slides.forEach((slide) => slide.classList.remove('is-dragging'));
+      if (peek && peek !== incoming) {
+        peek.classList.remove('is-active');
+        peek.style.transform = '';
+      }
+      peek = null;
+      peekDir = 0;
+
+      incoming.classList.add('is-active');
+      incoming.style.transform = 'translate3d(0, 0, 0)';
+      outgoing.classList.remove('is-active');
+
+      window.setTimeout(() => {
+        goTo(index + dir);
+        clearSlideStyles();
+      }, reduceMotion ? 150 : 400);
+    };
+
+    // Cancel: everything returns to the current slide instead of snapping.
+    const settleBack = () => {
+      slides.forEach((slide) => slide.classList.remove('is-dragging'));
+      at(index).style.transform = '';
+
+      const leaving = peek;
+      peek = null;
+      peekDir = 0;
+      if (leaving) {
+        leaving.classList.remove('is-active');
+        window.setTimeout(() => {
+          leaving.style.transform = '';
+          leaving.classList.remove('is-dragging');
+        }, reduceMotion ? 150 : 400);
+      }
+    };
+
+    const onPointerDown = (event) => {
+      if (slides.length < 2) return;
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      window.clearInterval(timer);
+      drag = {
+        id: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        lastX: event.clientX,
+        lastT: event.timeStamp,
+        velocity: 0,
+        dx: 0,
+        axis: null
+      };
+      try {
+        slider.setPointerCapture(event.pointerId);
+      } catch (error) {
+        /* synthetic events / older engines: capture is an optimisation only */
+      }
+    };
+
+    const onPointerMove = (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+
+      const totalX = event.clientX - drag.startX;
+      const totalY = event.clientY - drag.startY;
+
+      // ~8 px hysteresis: vertical scrolling wins until intent is clear.
+      if (drag.axis === null) {
+        if (Math.abs(totalX) < 8 && Math.abs(totalY) < 8) return;
+        drag.axis = Math.abs(totalX) > Math.abs(totalY) ? 'x' : 'y';
+        if (drag.axis === 'y') {
+          drag = null;
+          clearSlideStyles();
+          restart();
+          return;
+        }
+        loadSlide(index + 1);
+        loadSlide(index - 1);
+        at(index).classList.add('is-dragging');
+      }
+
+      if (drag.axis !== 'x') return;
+      event.preventDefault();
+
+      const elapsed = event.timeStamp - drag.lastT;
+      if (elapsed > 0) drag.velocity = (event.clientX - drag.lastX) / elapsed;
+      drag.lastX = event.clientX;
+      drag.lastT = event.timeStamp;
+
+      drag.dx = rubberband(totalX);
+      const direction = drag.dx < 0 ? 1 : -1;
+
+      if (direction !== peekDir || !peek) {
+        dropPeek();
+        peek = at(index + direction);
+        peekDir = direction;
+        peek.classList.add('is-active');
+        peek.classList.add('is-dragging');
+      }
+
+      at(index).style.transform = 'translate3d(' + drag.dx + 'px, 0, 0)';
+      peek.style.transform = 'translate3d(' + (direction * stageWidth() + drag.dx) + 'px, 0, 0)';
+    };
+
+    const onPointerUp = (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+
+      const dx = drag.dx;
+      const velocity = drag.velocity;
+      drag = null;
+
+      const speed = Math.abs(velocity);
+      const flick = speed > 0.35;
+      const passed = Math.abs(dx) > stageWidth() * 0.22;
+
+      if (flick || passed) {
+        // Rule 2 — momentum handoff: the sign of the release velocity decides
+        // whether the gesture commits, not just the raw position.
+        settleTo(flick ? (velocity > 0 ? -1 : 1) : (dx < 0 ? 1 : -1));
+      } else {
+        settleBack();
+      }
+      restart();
+    };
+
+    slider.addEventListener('dragstart', (event) => event.preventDefault());
+    slider.addEventListener('pointerdown', onPointerDown);
+    slider.addEventListener('pointermove', onPointerMove, { passive: false });
+    slider.addEventListener('pointerup', onPointerUp);
+    slider.addEventListener('pointercancel', onPointerUp);
+    slider.addEventListener('lostpointercapture', () => {
+      if (!drag) return;
+      drag = null;
+      settleBack();
+      restart();
+    });
+
+    /* ---------- Rule 1: keyboard parity with the drag gesture ---------- */
+    slider.tabIndex = 0;
+    slider.setAttribute('role', 'group');
+    slider.setAttribute('aria-roledescription', 'carousel');
+
+    slider.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      goTo(index + (event.key === 'ArrowRight' ? 1 : -1));
+      restart();
+    });
+
+    if (!reduceMotion) {
+      slider.addEventListener('pointerenter', () => window.clearInterval(timer));
+      slider.addEventListener('pointerleave', restart);
+      slider.addEventListener('focusin', () => window.clearInterval(timer));
+      slider.addEventListener('focusout', restart);
+    }
 
     goTo(0);
     start();

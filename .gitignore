@@ -37,6 +37,10 @@ out/
 # ===== Артефакты анализа кода (graphify) =====
 graphify-out/
 
+# ===== Сгенерированные отчёты Lighthouse / QA-скриншоты =====
+docs/lighthouse/
+docs/qa-*.png
+
 # ===== Локальные секреты =====
 .env
 .env.local

@@ -38,9 +38,12 @@
   --cdc-fw-black: 900;
 
   /* --- Геометрия / отступы --- */
-  --cdc-radius-sm: 8px;    /* радиус карточек (PFG) */
-  --cdc-radius-md: 12px;
-  --cdc-radius-pill: 999px;
+  --cdc-radius-xs: 6px;    /* мелкие чипы и бейджи */
+  --cdc-radius-sm: 10px;   /* компактные поверхности (spec-чипы) */
+  --cdc-radius-md: 14px;   /* карточки */
+  --cdc-radius-lg: 20px;   /* медиа-поверхности, hero-видео */
+  --cdc-radius-xl: 28px;   /* крупные панели и шторки */
+  --cdc-radius-pill: 999px;/* кнопки, счётчики, слайдер-доты */
   --cdc-gap: 15px;         /* базовый gap сетки (PFG) */
   --cdc-space-1: 8px;
   --cdc-space-2: 16px;
@@ -57,14 +60,27 @@
   --cdc-shadow-sm: 0 4px 12px rgba(46, 46, 46, 0.08);
   --cdc-shadow-md: 0 12px 32px rgba(46, 46, 46, 0.14);
   --cdc-shadow-lg: 0 24px 60px rgba(46, 46, 46, 0.22);
-  --cdc-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --cdc-transition: var(--cdc-dur-base) var(--cdc-ease-out);
+
+  /* --- Движение (Apple Design Manifest: damping / response) ---
+     damping 1.0   → --cdc-ease-out (критическое затухание, без overshoot)
+     damping ~0.8  → --cdc-ease-momentum (лёгкий overshoot, только для жестов)
+     response 0.3s → --cdc-dur-sheet;  response 0.4s → --cdc-dur-momentum */
+  --cdc-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --cdc-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --cdc-ease-momentum: cubic-bezier(0.34, 1.32, 0.64, 1);
+  --cdc-dur-fast: 120ms;      /* отклик на нажатие (pointerdown) */
+  --cdc-dur-base: 200ms;      /* микровзаимодействия */
+  --cdc-dur-sheet: 300ms;     /* response 0.3s: поповеры, шторки, меню */
+  --cdc-dur-slow: 320ms;
+  --cdc-dur-momentum: 400ms;  /* response 0.4s: перетаскиваемые поверхности */
 
   /* --- Кнопки (по Divi .et_pb_button) --- */
   --cdc-btn-bg: var(--cdc-orange);
   --cdc-btn-bg-hover: var(--cdc-orange-hover);
   --cdc-btn-text: #ffffff;
   --cdc-btn-padding: 0.85em 2.1em;
-  --cdc-btn-radius: 4px;
+  --cdc-btn-radius: var(--cdc-radius-pill);
   --cdc-btn-font-size: 18px;
   --cdc-btn-font-weight: 500;
 }
