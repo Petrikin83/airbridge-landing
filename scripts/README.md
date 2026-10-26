@@ -72,6 +72,20 @@ python scripts/fact_index.py
 python scripts/optimize_assets.py
 ```
 
+### Видео Showcase (`assets/videos/airbridge-motion-01.mp4`)
+
+Мастер — `Materials from Galiya/WhatsApp Video 2026-08-14 at 23.37.53 (1).mp4`
+(832×464, 47.4 с, 2192 kbps). На странице используется фрагмент с **5.0 с** длиной **42.4 с**:
+
+```powershell
+ffmpeg -ss 5 -t 42.4 -i "Materials from Galiya/WhatsApp Video 2026-08-14 at 23.37.53 (1).mp4" `
+  -c:v libx264 -preset slow -crf 20 -profile:v high -pix_fmt yuv420p `
+  -c:a aac -b:a 128k -movflags +faststart assets/videos/airbridge-motion-01.mp4
+```
+
+`optimize_assets.py` видео не пересобирает. Разрешение из 832×464 апскейлом не
+восстанавливается: для 1080p нужен исходный рендер клиента.
+
 ## Граф зависимостей
 
 `graphify update .` пересобирает `graphify-out/GRAPH_REPORT.md` (каталог не коммитится,
