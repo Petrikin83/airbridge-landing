@@ -1097,7 +1097,28 @@ button {
   justify-content: center;
   color: #fff;
   background: rgba(20, 20, 20, 0.35);
-  transition: background var(--cdc-transition);
+  transition: background var(--cdc-dur-base) var(--cdc-ease-out),
+    opacity var(--cdc-dur-base) var(--cdc-ease-out);
+}
+
+/* Rule 5 — the overlay leaves on playback instead of sitting on the frame */
+.ab-gallery__feature.is-playing .ab-gallery__play {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Keyboard users must still see what they focused: reveal the control again */
+.ab-gallery__feature.is-playing .ab-gallery__play:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ab-gallery__play[hidden] {
+  display: none;
+}
+
+.ab-gallery__feature.is-playing .js-gallery-video {
+  cursor: pointer;
 }
 
 .ab-gallery__play:hover {

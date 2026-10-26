@@ -140,6 +140,61 @@
     syncMenu();
   }
 
+  /* ---------- Showcase video: play overlay, tap-to-pause ---------- */
+  const galleryFeature = document.querySelector('.ab-gallery__feature');
+  const galleryVideo = document.querySelector('.js-gallery-video');
+  const galleryPlay = document.querySelector('.js-gallery-play');
+
+  if (galleryFeature && galleryVideo && galleryPlay) {
+    let startedAt = 0;
+
+    const setPlaying = (playing) => {
+      galleryFeature.classList.toggle('is-playing', playing);
+      galleryPlay.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
+      if (playing) startedAt = performance.now();
+    };
+
+    galleryPlay.addEventListener('click', () => {
+      // The button stays keyboard-reachable, so it also has to undo playback.
+      if (!galleryVideo.paused) {
+        galleryVideo.pause();
+        return;
+      }
+
+      // The click is a user gesture, so the soundtrack may start here.
+      galleryVideo.muted = false;
+
+      const attempt = galleryVideo.play();
+      if (!attempt || typeof attempt.then !== 'function') {
+        setPlaying(!galleryVideo.paused);
+        return;
+      }
+      attempt.then(() => setPlaying(true)).catch(() => {
+        galleryVideo.muted = true;
+        const retry = galleryVideo.play();
+        if (retry && typeof retry.then === 'function') {
+          retry.then(() => setPlaying(true)).catch(() => setPlaying(false));
+        } else {
+          setPlaying(!galleryVideo.paused);
+        }
+      });
+    });
+
+    // While playing the overlay is transparent, so a click lands on the frame.
+    // The click that started playback must not pause it: `play` can fire before
+    // the click finishes bubbling, and the overlay may hide mid-gesture.
+    galleryFeature.addEventListener('click', (event) => {
+      if (event.target.closest && event.target.closest('.js-gallery-play')) return;
+      if (!galleryFeature.classList.contains('is-playing')) return;
+      if (performance.now() - startedAt < 350) return;
+      galleryVideo.pause();
+    });
+
+    galleryVideo.addEventListener('play', () => setPlaying(true));
+    galleryVideo.addEventListener('pause', () => setPlaying(false));
+    galleryVideo.addEventListener('ended', () => setPlaying(false));
+  }
+
   /* ---------- Reveal on scroll ---------- */
   const revealEls = document.querySelectorAll('.ab-reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
@@ -199,30 +254,6 @@
     } else {
       counterEls.forEach((c) => { c.el.innerHTML = c.render(c.count); });
     }
-  }
-
-  /* ---------- Gallery feature video (play/pause) ---------- */
-  const featureVideo = document.querySelector('.js-gallery-video');
-  const playToggle = document.querySelector('.js-gallery-play');
-
-  if (featureVideo && playToggle) {
-    const icon = playToggle.querySelector('i');
-    const setPlaying = (playing) => {
-      playToggle.classList.toggle('is-playing', playing);
-      if (icon) icon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-play';
-    };
-
-    playToggle.addEventListener('click', () => {
-      if (featureVideo.paused) {
-        featureVideo.play();
-      } else {
-        featureVideo.pause();
-      }
-    });
-
-    featureVideo.addEventListener('play', () => setPlaying(true));
-    featureVideo.addEventListener('pause', () => setPlaying(false));
-    featureVideo.addEventListener('ended', () => setPlaying(false));
   }
 
   /* ---------- Solution sliders (hardcoded image routing) ---------- */

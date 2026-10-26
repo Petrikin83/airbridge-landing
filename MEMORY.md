@@ -450,6 +450,27 @@
       резист 320 px → −258 px (0.81), моб. меню: `inert true → false → true`, фокус возвращается
       на бургер.
 
+71. **Исправлен «залипающий» оранжевый кружок на видео Showcase (26.10.2026).**
+    - **Симптом:** в секции Showcase поверх видео оставался оранжевый круг play-кнопки —
+      и после запуска воспроизведения, и на паузе.
+    - **Причина:** в `main.js` было **два** обработчика одного и того же видео. Старый блок
+      (`Gallery feature video (play/pause)`) переключал play/pause, но класс `is-playing` вешал на
+      саму кнопку, тогда как CSS ждал его на контейнере `.ab-gallery__feature`; оверлей
+      `.ab-gallery__play` (`inset: 0` + затемняющая подложка) поэтому не скрывался. Новый
+      обработчик дублировал клик и сразу ставил паузу.
+    - **Исправление:** дублирующий блок удалён. Один обработчик: клик → `muted = false` + `play()`,
+      класс `is-playing` на `.ab-gallery__feature`, `aria-label` меняется на «Pause video»;
+      повторный клик по кнопке или по кадру → `pause()` и возврат оверлея. Добавлена защита от
+      самопереключения (игнор клика с самой кнопки + окно 350 мс), потому что событие `play`
+      может сработать раньше всплытия клика.
+    - **CSS:** `.ab-gallery__feature.is-playing .ab-gallery__play { opacity: 0; pointer-events: none }`;
+      при `:focus-visible` кнопка снова видима (клавиатура не теряет фокус), `cursor: pointer`
+      по кадру, переход 200 мс на `--cdc-ease-out`.
+    - **Проверка:** реальный клик (desktop 1440) и Enter (mobile 390): `paused false`, `muted false`,
+      `currentTime` растёт, оверлей `opacity 0`, `aria-label="Pause video"`; повторный Enter/клик —
+      `paused true`, оверлей `opacity 1`, `aria-label="Play video"`; `node --check` — OK,
+      `run_checks` — ALL CHECKS PASSED, Lighthouse desktop/mobile — **100/100/100/100**.
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
