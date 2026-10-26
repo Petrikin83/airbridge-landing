@@ -476,6 +476,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Keep the box exactly 16:9. The video is capped by max-height: 70vh on short
+     viewports, which would add letterboxing inside the frame and slide the mark
+     off the in-frame sparkle; capping the width instead keeps content == box. */
+  max-width: calc(70vh * 16 / 9);
+  margin-inline: auto;
 }
 
 .ab-hero__video {
@@ -492,16 +497,24 @@ button {
   overflow: hidden;
 }
 
-/* Brand mark pinned to the video corner: 24 px on a 24 px grid, quiet by default */
+/* Brand mark centred on the sparkle baked into the hero shot.
+   The 4-point star is static in the frame (verified on all 10 s of both the
+   desktop and the mobile clip plus the poster): its centre sits at 90.55% /
+   83.25% of the 16:9 video box, so translate(-50%, -50%) lands the mark's own
+   centre exactly on it at any container size. Offsets stay !important so no
+   downstream rule can pull the mark off the star. */
 .ab-hero__mark {
   position: absolute;
-  right: 24px;
-  bottom: 24px;
+  left: 90.55% !important;
+  top: 83.25% !important;
+  right: auto !important;
+  bottom: auto !important;
   z-index: 2;
   width: auto;
   height: 24px;
   opacity: 0.75;
   pointer-events: none;
+  transform: translate(-50%, -50%);
   transition: opacity 0.3s var(--cdc-ease-out);
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
@@ -513,9 +526,8 @@ button {
 }
 
 @media (max-width: 768px) {
+  /* Same star anchor on mobile — only the mark itself scales down. */
   .ab-hero__mark {
-    right: 16px;
-    bottom: 16px;
     height: 20px;
   }
 }
