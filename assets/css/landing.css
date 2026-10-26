@@ -492,6 +492,34 @@ button {
   overflow: hidden;
 }
 
+/* Brand mark pinned to the video corner: 24 px on a 24 px grid, quiet by default */
+.ab-hero__mark {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  width: auto;
+  height: 24px;
+  opacity: 0.75;
+  pointer-events: none;
+  transition: opacity 0.3s var(--cdc-ease-out);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+@media (hover: hover) {
+  .ab-hero__visual:hover .ab-hero__mark {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .ab-hero__mark {
+    right: 16px;
+    bottom: 16px;
+    height: 20px;
+  }
+}
+
 /* Fallback when the browser blocks autoplay (iOS Low Power Mode, autoplay policy) */
 .ab-hero__play {
   position: absolute;

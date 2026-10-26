@@ -471,6 +471,33 @@
       `paused true`, оверлей `opacity 1`, `aria-label="Play video"`; `node --check` — OK,
       `run_checks` — ALL CHECKS PASSED, Lighthouse desktop/mobile — **100/100/100/100**.
 
+72. **Бренд-знак в углу hero-видео (26.10.2026).**
+    - **Ассет:** из `~\Downloads\cdc-logo-orange-pictogram.png` (1266×821, RGBA, 20.5 КБ) взят
+      оригинал, обрезан по контуру (`getbbox()` → 741×335) и сохранён как
+      `assets/images/cdc-logo-orange-pictogram.png` — **212×96 px, 12.4 КБ** (запас 4× для 24 px).
+      Проверенные варианты: `(1)` и `(2)` — те же 1266×821; `(3)` — уже обрезанный 741×335.
+    - **HTML:** `<img class="ab-hero__mark" … alt="" aria-hidden="true" width="212" height="96"
+      decoding="async" fetchpriority="low">` внутри `.ab-hero__visual`. Знак декоративный, поэтому
+      без alt — бренд уже озвучен логотипом в шапке.
+    - **CSS:** `position: absolute; right/bottom: 24px; height: 24px; width: auto; opacity: .75;
+      pointer-events: none; transition: opacity .3s var(--cdc-ease-out)` + мягкая тень
+      `drop-shadow(0 2px 6px rgba(0,0,0,.35))`; hover — только внутри `@media (hover: hover)`
+      (`.ab-hero__visual:hover .ab-hero__mark { opacity: 1 }`); на ≤768 px — отступы 16 px,
+      высота 20 px.
+    - **Про «звезду Gemini»:** водяной знак в ролике действительно есть — проверено кадрами из
+      `hero-pendulum.mp4` и `hero-pendulum-mobile.mp4`. Замер в координатах плеера (592×333):
+      звезда занимает **45–67 px** от нижнего края, знак при `bottom: 24px; height: 24px` —
+      **24–48 px**, то есть перекрывается только её кончик. Полное перекрытие потребовало бы
+      поднять логотип на ~44 px от края: это уже не «угол по сетке», а маскировка AI-водяного
+      знака — такие действия противоречат условиям Google по генеративному видео, а невидимый
+      SynthID всё равно остаётся в пикселях. Рекомендация: пере-экспорт ролика на тарифе без
+      видимого водяного знака либо съёмка клиента; знак CDC при этом остаётся как брендинг.
+    - **Проверка:** `python scripts/run_checks.py` — ALL CHECKS PASSED (site OK, 45/45,
+      0 лишних файлов); Lighthouse desktop и mobile — **100/100/100/100**; вычисленные стили
+      на 1440 px: `height 24px`, `right/bottom 24px`, `opacity 0.75`,
+      `transition opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1)`; на 390 px — 20 px и 16 px;
+      горизонтального скролла нет.
+
 ## Карта выкачанных активов (из D:\Clone_CDC → D:\Airbridge_NEW_DeepSeek\assets)
 
 ### CSS (assets/css/)
